@@ -1,0 +1,118 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #050507;
+
+  --surface: #0d0d0d; /* backgrund color of card, project, and contact container */
+  --surface-05: #050505; /* background color of the image in hero section */
+  --surface-blue-05: #4fc3f705; /* open to internship background color */
+  --surface-0D: #4fc3f70d; /* background hover in education icon */
+
+  --text: #e8e8e8; /* Main Text */
+  --text-gray: #d2d2d2; /* Caption */
+  --text-dark: #0e0e0e;
+  --muted: #a7a7a7;
+  --disabled: #4fc3f74d;
+
+  --primary: #4fc2f7; /* Primary color */
+  --primary-E2: #4fc3f7e2;
+  --primary-C2: #4fc3f7c2; /* Secondary Color */
+
+  --border-67: #4fc3f767; /* border color open, live, role, github btn, tags, status, download icon */
+  --border-2E: #4fc3f72e; /* border of project and contact container, color of slanted image in hero section */
+  --border-3D: #ffffff3d;
+
+  --primary-00: #4fc3f700; /* glowing effects of image in hero section */
+  --primary-99: #4fc3f799; /* glowing effects of dot in project section */
+  --primary-1F: #4fc3f71f; /* glowing effects of project and contact container */
+  --primary-59: #4fc3f759; /* glowing effects in the send message icon */
+
+  --font-mono: "Martian Mono", monospace;
+  --font-barl: "Barlow Condensed", sans-serif;
+  --font-body: "Geist", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  background-image: radial-gradient(
+    circle,
+    var(--border-2E) 1px,
+    transparent 1px
+  );
+
+  background-size: 80px 80px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--text-dark);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface-0D);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-67);
+}
+
+.grid-bg {
+  position: fixed;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(79, 195, 247, 0.08),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(79, 195, 247, 0.05),
+      transparent 30%
+    ),
+    radial-gradient(var(--primary-1F) 1px, transparent 1px);
+
+  background-size:
+    auto,
+    auto,
+    40px 40px;
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+::placeholder {
+  color: var(--muted) !important;
+  opacity: 1;
+}
