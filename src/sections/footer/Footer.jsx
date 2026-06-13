@@ -65,7 +65,7 @@ export default function Footer() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
-            transition={{ duration: 0.5, delay: 0.08 }}
+            transition={{ duration: 0.7, delay: 0.08 }}
           >
             <div style={footerHeader}>
               Contact Info
@@ -89,7 +89,7 @@ export default function Footer() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
-            transition={{ duration: 0.5, delay: 0.16 }}
+            transition={{ duration: 0.7, delay: 0.16 }}
           >
             <div style={footerHeader}>
               Find me on

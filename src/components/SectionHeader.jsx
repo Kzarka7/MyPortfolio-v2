@@ -12,7 +12,7 @@ export default function SectionHeader({
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.7 }}
       style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",

@@ -110,7 +110,7 @@ export default function SkillCard({ skill, index }) {
         <motion.div
           initial={{ width: 0 }}
           whileInView={{
-            width: skill.active ? "100%" : "50%",
+            width: "100%",
           }}
           viewport={{ once: false }}
           transition={{

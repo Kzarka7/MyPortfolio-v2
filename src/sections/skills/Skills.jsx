@@ -36,7 +36,7 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{
-                duration: 0.5,
+                duration: 0.7,
                 delay: catIndex * 0.08,
               }}
             >

@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 import { educationData } from "../../data/education";
 import { sectionHeader } from "../../data/sections";
 import EducationCard from "./EducationCard";
@@ -36,7 +38,16 @@ export default function Education() {
           }}
         >
           {educationData.map((cat, catIndex) => (
-            <div key={cat.category}>
+            <motion.div
+              key={cat.category}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{
+                duration: 0.7,
+                delay: 0.08,
+              }}
+            >
               <div
                 style={{
                   fontFamily: "var(--font-mono)",
@@ -68,7 +79,7 @@ export default function Education() {
                   index={index}
                 />
               ))}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
