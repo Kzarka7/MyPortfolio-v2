@@ -138,7 +138,6 @@ export default function Button({
         background: sent ? "var(--surface-0D)" : "var(--primary-E2)",
         color: sent ? "var(--primary-E2)" : "var(--text-dark)",
         border: sent ? "0.5px solid var(--primary-E2)" : "none",
-        boxShadow: hov ? "0 0 16px 2px var(--primary-59)" : "none",
       },
     },
   };
@@ -159,14 +158,13 @@ export default function Button({
         height: "35px",
         width: hov ? "calc(100% - 5.5%)" : "35px",
         border: "1.5px solid var(--border-67)",
-        boxShadow: "0 0 8px 2px var(--primary-59)",
+        boxShadow: hov ? "0 0 8px 2px var(--primary-59)" : "none",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexShrink: 0,
         zIndex: 2,
-
-        transition: "background 0.3 ease",
+        transition: "all 0.3 ease",
       }
     : {
         /* send pill: accent bg, turns dark on hover via CSS */
@@ -175,12 +173,13 @@ export default function Button({
         background: sent ? "var(--primary)" : "var(--text-dark)",
         height: "35px",
         width: hov ? "calc(100% - 7.5%)" : "35px",
-        boxShadow: "0 0 8px 2px var(--primary-59)",
+        boxShadow: sent ? "0 0 8px 2px var(--primary)" : hov ? "0 0 4px 2px var(--surface-05)" : "none",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexShrink: 0,
         zIndex: 2,
+        transition: "all 0.3s ease"
       };
 
   const PillIcon = () => {

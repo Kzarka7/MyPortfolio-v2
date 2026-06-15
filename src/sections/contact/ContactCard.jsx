@@ -180,7 +180,7 @@ export default function ContactCard() {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginTop: "8px",
+              marginTop: "16px",
             }}
           >
             {/* Progress track — width driven by transform, not layout */}
