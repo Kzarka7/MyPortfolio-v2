@@ -28,15 +28,11 @@ export default function ProjectsCard({ project, direction }) {
     <motion.div
       initial={{ opacity: 0, y: 64 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{
-        y: -8,
-        transition: { duration: 0.25 },
-        boxShadow: "0 12px 30px var(--primary-1F)",
-      }}
+      whileHover={{ y: -6, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
       viewport={{ once: false, amount: 0.15 }}
       transition={{
         duration: 0.8,
-        ease: [0.5, 1, 0.5, 1],
+        ease: [0.16, 1, 0.3, 1],
       }}
       style={{
         position: "relative",
