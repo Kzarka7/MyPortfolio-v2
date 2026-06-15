@@ -22,14 +22,13 @@ export default function SkillCard({ skill, index }) {
         background: hov ? `${skill.color}08` : "var(--surface)",
         transition: "all 0.25s",
         position: "relative",
-        overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         gap: "14px",
       }}
     >
       {/* Corner brackets */}
-      <CornerBrackets color={hov ? skill.color : "var(--primary)"} />
+      <CornerBrackets color={hov ? skill.color : "var(--primary)"} size="10" strokeWidth="0.8" />
 
       {/* Accent line */}
       <div

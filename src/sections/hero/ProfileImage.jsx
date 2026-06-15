@@ -3,19 +3,15 @@ import { useRef } from "react";
 
 import profileImage1 from "../../assets/profile-image.png";
 import CornerBrackets from "../../components/CornerBrackets";
-
-import Availabity from "../../components/Availability";
+import Availability from "../../components/Availability";
+import GlareHover from "../../components/GlareHover";
 
 export default function ProfileImage() {
   const heroRef = useRef(null);
 
-  const isInView = useInView(heroRef, {
-    once: false,
-    amount: 0.2,
-  });
+  const isInView = useInView(heroRef, { once: false, amount: 0.2 });
 
   return (
-    /* RIGHT IMAGE (restored, unchanged structure feel) */
     <motion.div
       ref={heroRef}
       initial={{ opacity: 0, x: 30 }}
@@ -23,7 +19,7 @@ export default function ProfileImage() {
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       style={{ position: "relative" }}
     >
-      {/* Outer pulsing glow ring */}
+      {/* Pulsing glow ring */}
       <motion.div
         animate={{
           boxShadow: [
@@ -41,16 +37,19 @@ export default function ProfileImage() {
         }}
       />
 
-      {/* Square image frame */}
-      <div
-        style={{
-          width: "100%",
-          aspectRatio: "1 / 1",
-          border: "0.5px solid var(--primary-59)",
-          overflow: "hidden",
-          position: "relative",
-          background: "var(--surface-05)",
-        }}
+      {/* ── Image frame — GlareHover wraps the entire square ── */}
+      <GlareHover
+        width="100%"
+        height="100%"
+        background="var(--surface-05)"
+        borderRadius="0"
+        borderColor="var(--primary-59)"
+        glareColor="#4FC3F7"
+        glareOpacity={0.12}
+        glareAngle={-45}
+        glareSize={300}
+        transitionDuration={700}
+        style={{ aspectRatio: "1 / 1", border: "0.5px solid var(--primary-59)", position: "relative" }}
       >
         <CornerBrackets color="var(--primary)" size="14" strokeWidth="1.2" />
 
@@ -67,54 +66,41 @@ export default function ProfileImage() {
           }}
         />
 
-        {/* Bottom gradient overlay */}
+        {/* Bottom gradient */}
         <div
           style={{
             position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
+            bottom: 0, left: 0, right: 0,
             height: "60%",
-            background:
-              "linear-gradient(to top, rgb(0, 0, 0) 0%, transparent 70%)",
+            background: "linear-gradient(to top, rgb(0,0,0) 0%, transparent 70%)",
+            pointerEvents: "none",
           }}
         />
 
         {/* Name tag */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "16px",
-            left: "16px",
-            right: "16px",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "8px",
-              color: "var(--disabled)",
-              letterSpacing: "0.14em",
-              marginBottom: "3px",
-            }}
-          >
+        <div style={{ position: "absolute", bottom: "16px", left: "16px", right: "16px" }}>
+          <div style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "8px",
+            color: "var(--disabled)",
+            letterSpacing: "0.14em",
+            marginBottom: "3px",
+          }}>
             // PROFILE_IMG
           </div>
-          <div
-            style={{
-              fontFamily: "var(--font-barl)",
-              fontSize: "12px",
-              color: "var(--text)",
-              letterSpacing: "0.14em",
-            }}
-          >
+          <div style={{
+            fontFamily: "var(--font-barl)",
+            fontSize: "12px",
+            color: "var(--text)",
+            letterSpacing: "0.14em",
+          }}>
             JOHN BENEDICT M. GALA
           </div>
         </div>
 
-        {/* Scan line */}
+        {/* Scan line — opacity + translateY, GPU-composited */}
         <motion.div
-          animate={{ top: ["-2px", "102%", "-2px"] }}
+          animate={{ y: ["-2px", "102%", "-2px"] }}
           transition={{
             duration: 3.5,
             repeat: Infinity,
@@ -123,22 +109,16 @@ export default function ProfileImage() {
           }}
           style={{
             position: "absolute",
-            left: 0,
-            right: 0,
+            top: 0, left: 0, right: 0,
             height: "1px",
-            background:
-              "linear-gradient(90deg, transparent, var(--primary-C2), transparent)",
+            background: "linear-gradient(90deg, transparent, var(--primary-C2), transparent)",
             pointerEvents: "none",
+            willChange: "transform",
           }}
         />
-      </div>
+      </GlareHover>
 
-      <Availabity
-        style={{
-          top: "-14px",
-          right: "-14px",
-        }}
-      />
+      <Availability style={{ top: "-14px", right: "-14px" }} />
 
       {/* Measurement annotation */}
       <div

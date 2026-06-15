@@ -6,17 +6,21 @@ import Education from "../sections/education/Education";
 import Contact from "../sections/contact/Contact";
 import Footer from "../sections/footer/Footer";
 
+import ClickSpark from "../components/ClickSpark";
+
 export default function Home() {
   return (
-    <main>
-      <div className="grid-bg" />
-      <Navbar />
-      <Hero />
-      <Skills />
-      <Projects />
-      <Education />
-      <Contact />
-      <Footer />
-    </main>
+    <ClickSpark>
+      <main>
+        <div className="grid-bg" />
+        <Navbar />
+        <Hero />
+        <Skills />
+        <Projects />
+        <Education />
+        <Contact />
+        <Footer />
+      </main>
+    </ClickSpark>
   );
 }

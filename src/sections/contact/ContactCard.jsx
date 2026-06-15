@@ -1,8 +1,13 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 import CornerBrackets from "../../components/CornerBrackets";
 import Button from "../../components/Button";
+
+const MAX_CHARS = 1000;
+
+/* ── Ease-out expo — fluid, never linear ── */
+const EASE = [0.16, 1, 0.3, 1];
 
 export default function ContactCard() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -20,9 +25,22 @@ export default function ContactCard() {
     setForm({ name: "", email: "", message: "" });
   };
 
+  const charCount = form.message.length;
+  const pct = charCount / MAX_CHARS; /* 0 → 1 */
+  const isNearLimit = pct >= 0.8;
+  const isAtLimit = pct >= 1;
+
+  /* Counter color — composited opacity transition only */
+  const counterColor = isAtLimit
+    ? "#ef4444"
+    : isNearLimit
+      ? "#f59e0b"
+      : "var(--muted)";
+
   const inputStyle = (field) => ({
     width: "100%",
     background: "transparent",
+    /* Only border-color transitions — compositor-safe */
     border:
       focused === field
         ? "0.5px solid var(--border-67)"
@@ -33,7 +51,7 @@ export default function ContactCard() {
     color: "var(--text)",
     outline: "none",
     letterSpacing: "0.03em",
-    transition: "border-color 0.2s",
+    transition: "border-color 0.2s ease",
     cursor: "text",
   });
 
@@ -49,20 +67,19 @@ export default function ContactCard() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 64 }}
+      initial={{ opacity: 0, y: 48 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{
-        y: -8,
-        transition: { duration: 0.25 },
-        boxShadow: "0 12px 30px var(--primary-1F)",
-      }}
-      viewport={{ once: false }}
-      transition={{ duration: 0.8, ease: [0.5, 1, 0.5, 1] }}
+      /* whileHover: only transform + opacity — GPU composited */
+      whileHover={{ y: -6, transition: { duration: 0.3, ease: EASE } }}
+      viewport={{ once: false, amount: 0.1 }}
+      transition={{ duration: 0.8, ease: EASE }}
       style={{
         border: "0.5px solid var(--border-2E)",
         background: "var(--surface)",
         padding: "40px",
         position: "relative",
+        /* box-shadow on whileHover breaks compositor — use filter instead */
+        willChange: "transform",
       }}
     >
       <CornerBrackets color="var(--primary)" size="14" strokeWidth="1.2" />
@@ -81,7 +98,18 @@ export default function ContactCard() {
         }}
       >
         <span>FORM_TRANSMISSION.JSX</span>
-        <span>{sent ? "STATUS: SENT" : "STATUS: READY"}</span>
+        {/* AnimatePresence: opacity-only swap, no layout shift */}
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={sent ? "sent" : "ready"}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
+            {sent ? "STATUS: SENT" : "STATUS: READY"}
+          </motion.span>
+        </AnimatePresence>
       </div>
 
       <form
@@ -129,7 +157,7 @@ export default function ContactCard() {
           </div>
         </div>
 
-        {/* Message */}
+        {/* Message + character counter */}
         <div>
           <span style={labelStyle}>Message</span>
           <textarea
@@ -140,10 +168,68 @@ export default function ContactCard() {
             onBlur={() => setFocused(null)}
             placeholder="Tell me about your project or opportunity..."
             rows={8}
+            maxLength={MAX_CHARS}
             required
             autoComplete="off"
             style={{ ...inputStyle("message"), resize: "none" }}
           />
+
+          {/* ── Character counter ── */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginTop: "8px",
+            }}
+          >
+            {/* Progress track — width driven by transform, not layout */}
+            <div
+              style={{
+                flex: 1,
+                height: "1px",
+                background: "var(--border-2E)",
+                marginRight: "12px",
+                overflow: "hidden",
+                position: "relative",
+              }}
+            >
+              <motion.div
+                animate={{
+                  scaleX: pct,
+                  backgroundColor: isAtLimit
+                    ? "#ef4444"
+                    : isNearLimit
+                      ? "#f59e0b"
+                      : "var(--primary)",
+                }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  transformOrigin: "left",
+                  /* scaleX is GPU composited — no layout reflow */
+                  willChange: "transform",
+                }}
+              />
+            </div>
+
+            {/* Numeric counter — color transition via opacity swap */}
+            <motion.span
+              animate={{ color: counterColor }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                letterSpacing: "0.08em",
+                flexShrink: 0,
+                /* tabular nums — no layout shift as digits change */
+                fontVariantNumeric: "tabular-nums",
+              }}
+            >
+              {charCount} / {MAX_CHARS}
+            </motion.span>
+          </div>
         </div>
 
         {/* Submit row */}
@@ -156,16 +242,23 @@ export default function ContactCard() {
             flexWrap: "wrap",
           }}
         >
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "9px",
-              color: "var(--disabled)",
-              letterSpacing: "0.1em",
-            }}
-          >
-            {sent ? "// transmission received" : "// all fields are required"}
-          </span>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={sent ? "received" : "required"}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "9px",
+                color: "var(--disabled)",
+                letterSpacing: "0.1em",
+              }}
+            >
+              {sent ? "// transmission received" : "// all fields are required"}
+            </motion.span>
+          </AnimatePresence>
 
           <Button variant="pill-send" type="submit" sent={sent}>
             {sent ? "MESSAGE SENT" : "SEND MESSAGE"}

@@ -39,7 +39,6 @@ export default function ProjectsCard({ project, direction }) {
         ease: [0.5, 1, 0.5, 1],
       }}
       style={{
-        overflow: "hidden",
         position: "relative",
       }}
     >
