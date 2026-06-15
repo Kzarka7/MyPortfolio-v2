@@ -1,3 +1,4 @@
+import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -9,8 +10,14 @@ const MAX_CHARS = 1000;
 /* ── Ease-out expo — fluid, never linear ── */
 const EASE = [0.16, 1, 0.3, 1];
 
+/* ── EmailJS Keys ── */
+const SERVICE_ID = "service_pdcj379";
+const TEMPLATE_ID = "template_jqa9msp";
+const PUBLIC_KEY = "hJegStJOIQE5IWyyM";
+
 export default function ContactCard() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [focused, setFocused] = useState(null);
   const [hov, setHov] = useState(false);
@@ -18,20 +25,80 @@ export default function ContactCard() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  /* ── Whitelist Security Email Submission System ── */
+  /* ── Clean & Balanced Submission Security ── */
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", form);
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
-    setForm({ name: "", email: "", message: "" });
+
+    const emailClean = form.email.trim().toLowerCase();
+
+    // 1. Structural Verification: Ensures standard structure with a valid 2-6 char TLD
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(emailClean)) {
+      alert("Transmission failed: Invalid email structure detected.");
+      return;
+    }
+
+    const parts = emailClean.split("@");
+    const username = parts[0];
+    const domain = parts[1];
+
+    // 2. Streamlined Mash Filter: Rejects obvious keyboard mashes (e.g., asdfg, qweqwe)
+    // Checks for 5+ consecutive consonants OR a simple character repetition
+    const continuousConsonants = /[^aeiouy._%+-]{5,}/i;
+    const repeatingPattern = /(.)\1{4,}/;
+
+    if (
+      continuousConsonants.test(username) ||
+      repeatingPattern.test(username) ||
+      domain.includes("qwe") ||
+      username === "test"
+    ) {
+      alert(
+        "System Warning: Submission blocked. Please use a valid email identity.",
+      );
+      return;
+    }
+
+    // ── Validation Passed: Fire EmailJS Pipeline ──
+    try {
+      setSending(true);
+
+      const currentTimestamp = new Date().toLocaleString("en-US", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      });
+
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          name: form.name.trim(),
+          email: emailClean,
+          time: currentTimestamp,
+          message: form.message.trim(),
+        },
+        PUBLIC_KEY,
+      );
+
+      setSent(true);
+      setForm({ name: "", email: "", message: "" });
+      setTimeout(() => setSent(false), 4000);
+    } catch (err) {
+      console.error("System Interface Fault - EmailJS Error:", err);
+      alert(
+        "Transmission pipeline interrupted. Please review your server keys.",
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   const charCount = form.message.length;
-  const pct = charCount / MAX_CHARS; /* 0 → 1 */
+  const pct = charCount / MAX_CHARS;
   const isNearLimit = pct >= 0.8;
   const isAtLimit = pct >= 1;
 
-  /* Counter color — composited opacity transition only */
   const counterColor = isAtLimit
     ? "#ef4444"
     : isNearLimit
@@ -41,7 +108,6 @@ export default function ContactCard() {
   const inputStyle = (field) => ({
     width: "100%",
     background: "transparent",
-    /* Only border-color transitions — compositor-safe */
     border:
       focused === field
         ? "0.5px solid var(--border-67)"
@@ -72,7 +138,6 @@ export default function ContactCard() {
       onHoverEnd={() => setHov(false)}
       initial={{ opacity: 0, y: 48 }}
       whileInView={{ opacity: 1, y: 0 }}
-      /* whileHover: only transform + opacity — GPU composited */
       whileHover={{ y: -6, transition: { duration: 0.3, ease: EASE } }}
       viewport={{ once: false, amount: 0.1 }}
       transition={{ duration: 0.8, ease: EASE }}
@@ -83,7 +148,6 @@ export default function ContactCard() {
         background: "var(--surface)",
         padding: "40px",
         position: "relative",
-        /* box-shadow on whileHover breaks compositor — use filter instead */
         willChange: "transform",
         transition: "border 0.3s ease",
       }}
@@ -104,16 +168,19 @@ export default function ContactCard() {
         }}
       >
         <span>FORM_TRANSMISSION.JSX</span>
-        {/* AnimatePresence: opacity-only swap, no layout shift */}
         <AnimatePresence mode="wait">
           <motion.span
-            key={sent ? "sent" : "ready"}
+            key={sending ? "sending" : sent ? "sent" : "ready"}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            {sent ? "STATUS: SENT" : "STATUS: READY"}
+            {sending
+              ? "STATUS: SENDING"
+              : sent
+                ? "STATUS: SENT"
+                : "STATUS: READY"}
           </motion.span>
         </AnimatePresence>
       </div>
@@ -144,6 +211,7 @@ export default function ContactCard() {
               style={inputStyle("name")}
               required
               autoComplete="off"
+              disabled={sending}
             />
           </div>
           <div>
@@ -159,6 +227,7 @@ export default function ContactCard() {
               style={inputStyle("email")}
               required
               autoComplete="off"
+              disabled={sending}
             />
           </div>
         </div>
@@ -177,10 +246,11 @@ export default function ContactCard() {
             maxLength={MAX_CHARS}
             required
             autoComplete="off"
+            disabled={sending}
             style={{ ...inputStyle("message"), resize: "none" }}
           />
 
-          {/* ── Character counter ── */}
+          {/* Character counter */}
           <div
             style={{
               display: "flex",
@@ -189,7 +259,6 @@ export default function ContactCard() {
               marginTop: "16px",
             }}
           >
-            {/* Progress track — width driven by transform, not layout */}
             <div
               style={{
                 flex: 1,
@@ -214,13 +283,11 @@ export default function ContactCard() {
                   position: "absolute",
                   inset: 0,
                   transformOrigin: "left",
-                  /* scaleX is GPU composited — no layout reflow */
                   willChange: "transform",
                 }}
               />
             </div>
 
-            {/* Numeric counter — color transition via opacity swap */}
             <motion.span
               animate={{ color: counterColor }}
               transition={{ duration: 0.2, ease: "easeOut" }}
@@ -229,7 +296,6 @@ export default function ContactCard() {
                 fontSize: "10px",
                 letterSpacing: "0.08em",
                 flexShrink: 0,
-                /* tabular nums — no layout shift as digits change */
                 fontVariantNumeric: "tabular-nums",
               }}
             >
@@ -250,7 +316,7 @@ export default function ContactCard() {
         >
           <AnimatePresence mode="wait">
             <motion.span
-              key={sent ? "received" : "required"}
+              key={sending ? "sending" : sent ? "received" : "required"}
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
@@ -262,12 +328,21 @@ export default function ContactCard() {
                 letterSpacing: "0.1em",
               }}
             >
-              {sent ? "// transmission received" : "// all fields are required"}
+              {sending
+                ? "// processing upload data..."
+                : sent
+                  ? "// transmission received"
+                  : "// all fields are required"}
             </motion.span>
           </AnimatePresence>
 
-          <Button variant="pill-send" type="submit" sent={sent}>
-            {sent ? "MESSAGE SENT" : "SEND MESSAGE"}
+          <Button
+            variant="pill-send"
+            type="submit"
+            disabled={sending}
+            sent={sent}
+          >
+            {sending ? "SENDING..." : sent ? "MESSAGE SENT" : "SEND MESSAGE"}
           </Button>
         </div>
       </form>
