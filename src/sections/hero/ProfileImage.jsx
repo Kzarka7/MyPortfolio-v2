@@ -14,8 +14,8 @@ export default function ProfileImage() {
   return (
     <motion.div
       ref={heroRef}
-      initial={{ opacity: 0, x: 30 }}
-      animate={{ opacity: isInView ? 1 : 0, x: isInView ? 0 : 30 }}
+      initial={{ opacity: 0, x: -64 }}
+      animate={{ opacity: isInView ? 1 : 0, x: isInView ? 0 : -64 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       style={{ position: "relative" }}
     >
