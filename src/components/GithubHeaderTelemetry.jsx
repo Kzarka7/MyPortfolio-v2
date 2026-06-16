@@ -70,7 +70,7 @@ export default function GithubHeaderTelemetry() {
       style={{
         fontFamily: "var(--font-mono, monospace)",
         fontSize: "11px",
-        color: "var(--disabled, #555)",
+        color: "var(--disabled)",
         letterSpacing: "0.05em",
         display: "flex",
         alignItems: "center",
