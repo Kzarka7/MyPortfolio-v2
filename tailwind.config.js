@@ -4,15 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        base: "#0A0F1E",        // dark navy background
-        surface: "#111827",     // card/section surface
-        accent: "#00A8FF",      // electric blue highlight
-        gold: "#F5C518",        // optional secondary accent
-        muted: "#6B7280",       // subdued text
+        base: "#0A0F1E",
+        surface: "#111827",
+        accent: "#00A8FF",
+        gold: "#F5C518",
+        muted: "#6B7280",
       },
       fontFamily: {
-        display: ["Syne", "sans-serif"],
-        body: ["IBM Plex Sans", "sans-serif"],
+        // 🟢 Change this key from 'display' to 'mono' so 'font-mono' uses your font!
+        mono: ["var(--font-mono)", "monospace"], 
+        body: ["var(--font-body)", "sans-serif"],
       },
     },
   },

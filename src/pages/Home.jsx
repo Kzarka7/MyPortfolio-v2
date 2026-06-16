@@ -10,17 +10,18 @@ import ClickSpark from "../components/ClickSpark";
 
 export default function Home() {
   return (
-    <ClickSpark>
+    <>
+      <Navbar />
       <main>
         <div className="grid-bg" />
-        <Navbar />
-        <Hero />
+
+        {/* <Hero />
         <Skills />
         <Projects />
         <Education />
         <Contact />
-        <Footer />
+        <Footer /> */}
       </main>
-    </ClickSpark>
+    </>
   );
 }
