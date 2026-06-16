@@ -9,6 +9,7 @@ export default function ArrowButton({ direction, onClick, disabled }) {
       disabled={disabled}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
+      aria-label="Next project"
       style={{
         width: "46px",
         height: "46px",

@@ -48,13 +48,17 @@ export default function ProfileImage() {
         glareAngle={-45}
         glareSize={300}
         transitionDuration={700}
-        style={{ aspectRatio: "1 / 1", border: "0.5px solid var(--primary-59)", position: "relative" }}
+        style={{
+          aspectRatio: "1 / 1",
+          border: "0.5px solid var(--primary-59)",
+          position: "relative",
+        }}
       >
         <CornerBrackets color="var(--primary)" size="14" strokeWidth="1.2" />
 
         <img
           src={profileImage1}
-          alt="Profile"
+          alt="John Benedict Gala - Computer Engineering Student"
           style={{
             width: "100%",
             height: "100%",
@@ -69,30 +73,44 @@ export default function ProfileImage() {
         <div
           style={{
             position: "absolute",
-            bottom: 0, left: 0, right: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
             height: "60%",
-            background: "linear-gradient(to top, rgb(0,0,0) 0%, transparent 70%)",
+            background:
+              "linear-gradient(to top, rgb(0,0,0) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
 
         {/* Name tag */}
-        <div style={{ position: "absolute", bottom: "16px", left: "16px", right: "16px" }}>
-          <div style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "8px",
-            color: "var(--disabled)",
-            letterSpacing: "0.14em",
-            marginBottom: "3px",
-          }}>
+        <div
+          style={{
+            position: "absolute",
+            bottom: "16px",
+            left: "16px",
+            right: "16px",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "8px",
+              color: "var(--disabled)",
+              letterSpacing: "0.14em",
+              marginBottom: "3px",
+            }}
+          >
             // PROFILE_IMG
           </div>
-          <div style={{
-            fontFamily: "var(--font-barl)",
-            fontSize: "12px",
-            color: "var(--text)",
-            letterSpacing: "0.14em",
-          }}>
+          <div
+            style={{
+              fontFamily: "var(--font-barl)",
+              fontSize: "12px",
+              color: "var(--text)",
+              letterSpacing: "0.14em",
+            }}
+          >
             JOHN BENEDICT M. GALA
           </div>
         </div>
@@ -108,9 +126,12 @@ export default function ProfileImage() {
           }}
           style={{
             position: "absolute",
-            top: 0, left: 0, right: 0,
+            top: 0,
+            left: 0,
+            right: 0,
             height: "1px",
-            background: "linear-gradient(90deg, transparent, var(--primary-C2), transparent)",
+            background:
+              "linear-gradient(90deg, transparent, var(--primary-C2), transparent)",
             pointerEvents: "none",
             willChange: "transform",
           }}
