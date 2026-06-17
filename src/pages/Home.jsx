@@ -20,8 +20,8 @@ export default function Home() {
         <Projects />
         <Education />
         <Contact />
-        {/* <Footer /> */}
       </main>
+      <Footer />
     </>
   );
 }

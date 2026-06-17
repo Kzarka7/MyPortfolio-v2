@@ -12,97 +12,52 @@ import Availabity from "../../components/Availability";
 export default function Footer() {
   const year = new Date().getFullYear();
 
-  const footerHeader = {
-    fontFamily: "var(--font-barl)",
-    fontSize: "12px",
-    color: "var(--muted)",
-    letterSpacing: "0.18em",
-    textTransform: "uppercase",
-    marginBottom: "16px",
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  };
-
-  const footerLine = {
-    flex: 1,
-    height: "0.5px",
-    background: "var(--border-3D)",
-    display: "block",
-  };
+  // ── Shared Base Class Definitions ──
+  const headerClassName = "text-[12px] text-[var(--muted)] tracking-[0.18em] uppercase mb-4 flex items-center gap-2.5";
+  const lineClassName = "flex-1 h-[0.5px] bg-[var(--border-3D)] block";
 
   return (
-    <footer
-      style={{
-        position: "relative",
-        zIndex: 1,
-        borderTop: "0.5px solid var(--border-3D)",
-        background: "var(--surface-blue-05)",
-        backdropFilter: "blur(5px)",
-        WebkitBackdropFilter: "blur(12px)",
-      }}
-    >
-      <div
-        style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px 0 28px" }}
-      >
+    <footer className="relative z-10 border-t border-[var(--border-3D)] bg-[var(--surface-blue-05)] backdrop-blur-[50px]">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6 lg:px-0 py-5 pb-7">
+        
         {/* ── 3-COLUMN GRID ── */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "40px",
-            alignItems: "start",
-            marginBottom: "20px",
-            paddingBottom: "20px",
-            borderBottom: "0.5px solid var(--border-3D)",
-          }}
-        >
-          {/* COL 1 — Name + School */}
+        {/* 🟢 FIXED: Collapses to a readable single column on mobile, unfolds to 3 columns on tablet/desktop viewports */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8 items-start mb-5 pb-12 md:pb-5 border-b border-[var(--border-3D)]">
+          
+          {/* COL 1 — Name + School Profile Info */}
           <FooterProfile />
 
-          {/* COL 2 — Email, Phone, Address */}
+          {/* COL 2 — Email, Phone, Address Meta */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.7, delay: 0.08 }}
           >
-            <div style={footerHeader}>
+            <div style={{ fontFamily: "var(--font-barl)" }} className={headerClassName}>
               Contact Info
-              <span style={footerLine} />
+              <span className={lineClassName} />
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-              }}
-            >
+            <div className="flex flex-col gap-3">
               {contactInfo.map((item, i) => (
                 <FooterContact key={i} item={item} />
               ))}
             </div>
           </motion.div>
 
-          {/* COL 3 — Social Links + Availability */}
+          {/* COL 3 — Social Links + Availability Indicators */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.7, delay: 0.16 }}
           >
-            <div style={footerHeader}>
+            <div style={{ fontFamily: "var(--font-barl)" }} className={headerClassName}>
               Find me on
-              <span style={footerLine} />
+              <span className={lineClassName} />
             </div>
 
-            <div
-              style={{
-                display: "flex",
-                gap: "20px",
-                marginBottom: "24px",
-              }}
-            >
+            <div className="flex gap-5 mb-6">
               {socialLinks.map((s) => (
                 <FooterLinks key={s.label} item={s} />
               ))}
@@ -112,21 +67,11 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        {/* Copyright */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        {/* Copyright System Log Row */}
+        <div className="flex justify-center items-center text-center">
           <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "10px",
-              color: "var(--muted)",
-              letterSpacing: "0.08em",
-            }}
+            style={{ fontFamily: "var(--font-mono)" }}
+            className="text-[10px] text-[var(--muted)] tracking-[0.08em] select-none"
           >
             © {year} · JOHN BENEDICT M. GALA · ALL RIGHTS RESERVED
           </span>

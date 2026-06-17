@@ -8,29 +8,19 @@ export default function FooterProfile() {
       viewport={{ once: false }}
       transition={{ duration: 0.7 }}
     >
+      {/* ── Profile Brand Header ── */}
       <div
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "18px",
-          fontWeight: 700,
-          color: "var(--text)",
-          letterSpacing: "-0.01em",
-          marginBottom: "10px",
-          lineHeight: 1.2,
-        }}
+        style={{ fontFamily: "var(--font-mono)" }}
+        className="text-[18px] font-bold text-[var(--text)] tracking-[-0.01em] mb-2.5 line-height-[1.2]"
       >
         JOHN
-        <span style={{ color: "var(--primary)" }}> BENEDICT M. GALA</span>
+        <span className="text-[var(--primary)]"> BENEDICT M. GALA</span>
       </div>
+
+      {/* ── Professional Academic Metadata ── */}
       <div
-        style={{
-          fontFamily: "var(--font-barl)",
-          fontSize: "14px",
-          color: "var(--text-gray)",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          lineHeight: 1.6,
-        }}
+        style={{ fontFamily: "var(--font-barl)" }}
+        className="text-[14px] text-[var(--text-gray)] tracking-[0.12em] uppercase leading-[1.6]"
       >
         Intern Student
         <br />

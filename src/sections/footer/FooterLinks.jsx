@@ -5,74 +5,37 @@ export default function FooterLinks({ item }) {
   const Icon = item.icon;
 
   return (
-    <div style={{ position: "relative", display: "inline-block" }}>
+    <div className="relative inline-block">
       <a
         href={item.href}
         target="_blank"
         rel="noreferrer"
         onMouseEnter={() => setHov(true)}
         onMouseLeave={() => setHov(false)}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          textDecoration: "none",
-          cursor: "pointer",
-        }}
+        className="flex items-center justify-center no-underline cursor-pointer"
       >
         <Icon
-          style={{
-            fontSize: "22px",
-            color: hov ? "var(--primary)" : "var(--text)",
-            transition: "color 0.2s, transform 0.2s",
-            transform: hov ? "scale(1.25)" : "scale(1)",
-            display: "block",
-          }}
+          className={`text-[22px] block transition-all duration-200 ${
+            hov ? "text-[var(--primary)] scale-125" : "text-[var(--text)] scale-100"
+          }`}
         />
       </a>
 
-      {/* Tooltip */}
+      {/* Interactive Tooltip Component Block */}
       <div
-        style={{
-          position: "absolute",
-          bottom: "140%",
-          left: "50%",
-          transform: hov
-            ? "translateX(-50%) scale(1)"
-            : "translateX(-50%) scale(0)",
-          transformOrigin: "bottom center",
-          transition: "transform 0.2s ease-in-out",
-          background: "var(--text-dark)",
-          border: "0.5px solid var(--disabled)",
-          padding: "5px 12px",
-          whiteSpace: "nowrap",
-          zIndex: 50,
-          pointerEvents: "none",
-        }}
+        className={`absolute bottom-[140%] left-1/2 origin-bottom -translate-x-1/2 bg-[var(--text-dark)] border-[0.5px] border-[var(--disabled)] p-[5px_12px] whitespace-nowrap z-50 pointer-events-none transition-transform duration-200 ease-in-out ${
+          hov ? "scale-100" : "scale-0"
+        }`}
       >
         <span
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "10px",
-            color: "var(--primary)",
-            letterSpacing: "0.1em",
-          }}
+          style={{ fontFamily: "var(--font-mono)" }}
+          className="text-[10px] text-[var(--primary)] tracking-[0.1em]"
         >
           {item.label}
         </span>
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-4px",
-            left: "50%",
-            transform: "translateX(-50%) rotate(45deg)",
-            width: "6px",
-            height: "6px",
-            background: "var(--text-dark)",
-            borderRight: "0.5px solid var(--disabled)",
-            borderBottom: "0.5px solid var(--disabled)",
-          }}
-        />
+        
+        {/* Tooltip Downward Caret Arrow */}
+        <div className="absolute -bottom-[4px] left-1/2 -translate-x-1/2 rotate-45 w-1.5 h-1.5 bg-[var(--text-dark)] border-r-[0.5px] border-b-[0.5px] border-[var(--disabled)]" />
       </div>
     </div>
   );
