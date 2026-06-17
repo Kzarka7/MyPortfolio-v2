@@ -14,7 +14,6 @@ export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
 
   // 🔄 Synchronized: Cycles through the 5 log entries exactly every 800ms
-  // (5 logs * 800ms = 4000ms total loop for log printing)
   useEffect(() => {
     if (currentLog < BOOT_LOGS.length - 1) {
       const logTimeout = setTimeout(() => {
@@ -26,17 +25,16 @@ export default function Preloader({ onComplete }) {
 
   // 🔄 Exact Precision: Ticks up to exactly 100% at the 4000ms mark, then holds for 1000ms
   useEffect(() => {
-    const totalLoadingTime = 4000; // 4 seconds to climb
-    const tickRate = 40; // Update every 40ms for a super smooth progress line
-    const totalTicks = totalLoadingTime / tickRate; // 100 ticks total
-    const incrementPerTick = 100 / totalTicks; // Exactly 1% per tick
+    const totalLoadingTime = 4000; 
+    const tickRate = 40; 
+    const totalTicks = totalLoadingTime / tickRate; 
+    const incrementPerTick = 100 / totalTicks; 
 
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(progressInterval);
           // ── 🎯 THE FINAL HOLD ──
-          // Holds at 100% for exactly 1 second. 4s + 1s = 5 seconds total runtime.
           setTimeout(onComplete, 1000); 
           return 100;
         }
@@ -56,30 +54,40 @@ export default function Preloader({ onComplete }) {
         transition: { duration: 0.4, ease: [0.85, 0, 0.15, 1] },
       }}
       style={{
-        position: "fixed",
-        inset: 0,
-        background: "#06090e",
-        zIndex: 9999,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "20px",
-        fontFamily: "var(--font-mono, monospace)",
-        overflow: "hidden",
+        fontFamily: "var(--font-mono)",
       }}
+      className="fixed inset-0 bg-[#06090e] z-[9999] flex flex-col justify-center items-center p-5 overflow-hidden"
     >
+      {/* 🟢 Ambient Cyberpunk Radar Glows (Option 2) */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* Top Left Deep Blue Glow */}
+        <motion.div 
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.15, 0.25, 0.15]
+          }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-40 -left-40 w-96 h-96 bg-[#0055ff] rounded-full filter blur-[120px]"
+        />
+        
+        {/* Bottom Right Cyan Glow */}
+        <motion.div 
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.2, 0.1]
+          }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute -bottom-40 -right-40 w-96 h-96 bg-[var(--primary,#00f0ff)] rounded-full filter blur-[120px]"
+        />
+      </div>
+
       {/* Background Matrix Scanning Line Grid Overlay */}
       <div
+        className="absolute inset-0 z-[1] pointer-events-none opacity-40"
         style={{
-          position: "absolute",
-          inset: 0,
           backgroundImage:
             "linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%)",
           backgroundSize: "100% 4px",
-          zIndex: 1,
-          pointerEvents: "none",
-          opacity: 0.4,
         }}
       />
 
@@ -88,17 +96,10 @@ export default function Preloader({ onComplete }) {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        style={{
-          width: "100%",
-          maxWidth: "420px",
-          position: "relative",
-          zIndex: 2,
-        }}
+        className="w-full max-w-[420px] relative z-[2]"
       >
         {/* Terminal Text Log */}
-        <div
-          style={{ height: "45px", marginBottom: "20px", overflow: "hidden" }}
-        >
+        <div className="h-[45px] mb-5 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.p
               key={currentLog}
@@ -106,14 +107,7 @@ export default function Preloader({ onComplete }) {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 5 }}
               transition={{ duration: 0.15 }}
-              style={{
-                fontSize: "12px",
-                color: "var(--primary, #00f0ff)",
-                letterSpacing: "0.05em",
-                margin: 0,
-                display: "flex",
-                alignItems: "center",
-              }}
+              className="text-[12px] text-[var(--primary,#00f0ff)] tracking-[0.05em] m-0 flex items-center"
             >
               <span>&gt;&nbsp;{BOOT_LOGS[currentLog]}</span>
               {/* Blinking Terminal Prompt Cursor Block */}
@@ -124,100 +118,43 @@ export default function Preloader({ onComplete }) {
                   duration: 0.6,
                   ease: "steps(2)",
                 }}
-                style={{
-                  display: "inline-block",
-                  width: "7px",
-                  height: "14px",
-                  background: "var(--primary, #00f0ff)",
-                  marginLeft: "6px",
-                }}
+                className="inline-block w-[7px] h-[14px] bg-[var(--primary,#00f0ff)] ml-1.5"
               />
             </motion.p>
           </AnimatePresence>
         </div>
 
         {/* Outer Tech Frame Grid */}
-        <div
-          style={{
-            border: "0.5px solid var(--border-2E, #222)",
-            padding: "5px",
-            position: "relative",
-            background: "rgba(0, 240, 255, 0.01)",
-          }}
-        >
+        <div className="border-[0.5px] border-[var(--border-2E,#222)] p-1 relative bg-[rgba(0,240,255,0.01)]">
           {/* Tech decorative crosshairs */}
-          <div
-            style={{
-              position: "absolute",
-              top: "-3px",
-              left: "-3px",
-              width: "6px",
-              height: "6px",
-              borderLeft: "1px solid var(--primary, #00f0ff)",
-              borderTop: "1px solid var(--primary, #00f0ff)",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              bottom: "-3px",
-              right: "-3px",
-              width: "6px",
-              height: "6px",
-              borderRight: "1px solid var(--primary, #00f0ff)",
-              borderBottom: "1px solid var(--primary, #00f0ff)",
-            }}
-          />
+          <div className="absolute top-[-3px] left-[-3px] w-[6px] h-[6px] border-l border-t border-[var(--primary,#00f0ff)]" />
+          <div className="absolute bottom-[-3px] right-[-3px] w-[6px] h-[6px] border-r border-b border-[var(--primary,#00f0ff)]" />
 
           {/* Progress Bar Track */}
-          <div
-            style={{
-              height: "6px",
-              background: "rgba(255,255,255,0.01)",
-              width: "100%",
-              overflow: "hidden",
-            }}
-          >
+          <div className="h-[6px] bg-white/[0.01] w-full overflow-hidden">
             <motion.div
               animate={{ width: `${progress}%` }}
-              transition={{ ease: "easeOut", duration: 0.04 }} // Perfectly synced visual transition matching the speed state
-              style={{
-                height: "100%",
-                background:
-                  "linear-gradient(90deg, #0055ff, var(--primary, #00f0ff))",
-                boxShadow: "0 0 8px rgba(0, 240, 255, 0.4)",
-              }}
+              transition={{ ease: "easeOut", duration: 0.04 }}
+              className="h-full bg-gradient-to-r from-[#0055ff] to-[var(--primary,#00f0ff)]"
+              style={{ boxShadow: "0 0 8px rgba(0, 240, 255, 0.4)" }}
             />
           </div>
         </div>
 
         {/* Counter & Status Display */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "10px",
-            fontSize: "10px",
-            color: "var(--text-gray, #888)",
-            letterSpacing: "0.1em",
-          }}
-        >
-          <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+        <div className="flex justify-between mt-2.5 text-[10px] text-[var(--text-gray,#888)] tracking-[0.1em]">
+          <span className="flex items-center gap-1.5">
             {/* Pulsing online network indicator dot */}
             <motion.span
               animate={{ opacity: [0.4, 1, 0.4] }}
               transition={{ repeat: Infinity, duration: 1.2 }}
-              style={{
-                width: "5px",
-                height: "5px",
-                borderRadius: "50%",
-                background:
-                  progress === 100 ? "#00ffaa" : "var(--primary, #00f0ff)",
-              }}
+              className={`w-[5px] h-[5px] rounded-full ${
+                progress === 100 ? "bg-[#00ffaa]" : "bg-[var(--primary,#00f0ff)]"
+              }`}
             />
             SYS_BOOT_SEQUENCE
           </span>
-          <span style={{ color: "var(--text, #fff)", fontWeight: "bold" }}>
+          <span className="text-[var(--text,#fff)] font-bold">
             {Math.round(progress).toString().padStart(2, "0")}%
           </span>
         </div>
