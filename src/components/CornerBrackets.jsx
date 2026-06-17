@@ -5,9 +5,9 @@ export default function CornerBrackets({
 }) {
   return (
     <>
-      {/* Top Left */}
+      {/* 📐 Top Left Bracket */}
       <svg
-        style={{ position: "absolute", top: "-1px", left: "-1px" }}
+        className="absolute -top-[1px] -left-[1px]"
         width={size}
         height={size}
         viewBox="0 0 10 10"
@@ -20,9 +20,9 @@ export default function CornerBrackets({
         />
       </svg>
 
-      {/* Top Right */}
+      {/* 📐 Top Right Bracket */}
       <svg
-        style={{ position: "absolute", top: "-1px", right: "-1px" }}
+        className="absolute -top-[1px] -right-[1px]"
         width={size}
         height={size}
         viewBox="0 0 10 10"
@@ -35,9 +35,9 @@ export default function CornerBrackets({
         />
       </svg>
 
-      {/* Bottom Left */}
+      {/* 📐 Bottom Left Bracket */}
       <svg
-        style={{ position: "absolute", bottom: "-1px", left: "-1px", zIndex: 1 }}
+        className="absolute -bottom-[1px] -left-[1px] z-[1]"
         width={size}
         height={size}
         viewBox="0 0 10 10"
@@ -50,9 +50,9 @@ export default function CornerBrackets({
         />
       </svg>
 
-      {/* Bottom Right */}
+      {/* 📐 Bottom Right Bracket */}
       <svg
-        style={{ position: "absolute", bottom: "-1px", right: "-1px", zIndex: 1 }}
+        className="absolute -bottom-[1px] -right-[1px] z-[1]"
         width={size}
         height={size}
         viewBox="0 0 10 10"

@@ -11,17 +11,19 @@ import ClickSpark from "../components/ClickSpark";
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <main className="flex flex-col gap-48 md:gap-0">
-        <div className="grid-bg" />
+      <ClickSpark>
+        <Navbar />
+        <main className="flex flex-col gap-48 md:gap-0">
+          <div className="grid-bg" />
 
-        <Hero />
-        <Skills />
-        <Projects />
-        <Education />
-        <Contact />
-      </main>
-      <Footer />
+          <Hero />
+          <Skills />
+          <Projects />
+          <Education />
+          <Contact />
+        </main>
+        <Footer />
+      </ClickSpark>
     </>
   );
 }

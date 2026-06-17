@@ -1,52 +1,12 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { FiDownload, FiCheck } from "react-icons/fi";
 import { MdSend } from "react-icons/md";
 
-/* Only ::before pseudo-elements — cannot be done inline */
-const SKEW_CSS = `
-  .btn-solid::before {
-    content: ""; position: absolute;
-    left: -50px; top: 0; width: 0; height: 100%;
-    background: #0c5f78;
-    transform: skewX(45deg); z-index: 0;
-    transition: width 1000ms;
-  }
-  .btn-ghost::before {
-    content: ""; position: absolute;
-    left: -50px; top: 0; width: 0; height: 100%;
-    background: var(--primary-E2);
-    transform: skewX(45deg); z-index: 0;
-    transition: width 1000ms;
-  }
-  .btn-solid:hover::before,
-  .btn-ghost:hover::before { width: 250%; }
-
-  /* pill-resume: dark box → turns accent on hover */
-  .btn-pill-resume .pill-box { transition: width 0.3s ease, background 0.3s ease; }
-
-  /* pill-send: dark box → expands on hover */
-  .btn-pill-send .pill-box { transition: width 0.3s ease, background 0.3s ease; }
-`;
-
-/*
-  VARIANTS
-    'solid'      — filled accent + skew wipe        → VIEW PROJECTS
-    'ghost'      — outline + skew fill on hover     → GET IN TOUCH
-    'pill-resume'— ghost + dark pill slides right   → DOWNLOAD RESUME
-    'pill-send'  — filled + dark pill slides right  → SEND_MESSAGE
-
-  PROPS
-    href         — renders <a>, omit for <button>
-    type         — 'button' | 'submit'  (default: 'button')
-    download     — boolean, adds download attr
-    sent         — boolean, success state for pill-send
-    label        — text fallback if no children
-    target       — link target (default: '_self')
-*/
 export default function Button({
   children,
   href,
-  variant = "",
+  variant = "solid",
   type = "button",
   download = false,
   sent = false,
@@ -55,177 +15,105 @@ export default function Button({
   ...props
 }) {
   const [hov, setHov] = useState(false);
-
   const Tag = href ? "a" : "button";
 
   const tagProps = {
-    ...(href
-      ? { href, target, ...(download && { download: true }) }
-      : { type }),
+    ...(href ? { href, target, ...(download && { download: true }) } : { type }),
     onMouseEnter: () => setHov(true),
     onMouseLeave: () => setHov(false),
     ...props,
   };
 
-  /* ── Shared base ── */
-  const base = {
-    position: "relative",
-    overflow: "hidden",
-    display: "inline-flex",
-    alignItems: "center",
-    fontFamily: "var(--font-mono)",
-    fontWeight: 700,
-    letterSpacing: "0.06em",
-    textDecoration: "none",
-    whiteSpace: "nowrap",
-    cursor: "pointer",
-    transition: "color 1000ms, transform 800ms, box-shadow 800ms",
-  };
-
-  /* ── Per-variant styles + CSS class name ── */
-  const variants = {
-    solid: {
-      cls: "btn-solid",
-      style: {
-        ...base,
-        justifyContent: "center",
-        padding: "16px 24px",
-        fontSize: "14px",
-        background: "var(--primary-E2)",
-        color: hov ? "var(--text)" : "var(--text-dark)",
-        border: "2px solid var(--primary-E2)",
-        transform: hov ? "scale(1.05)" : "scale(1)",
-        boxShadow: hov ? "4px 5px 16px 2px var(--primary-59)" : "none",
-      },
-    },
-    ghost: {
-      cls: "btn-ghost",
-      style: {
-        ...base,
-        justifyContent: "center",
-        padding: "16px 24px",
-        fontSize: "14px",
-        background: "var(--surface-0D)",
-        color: hov ? "var(--text-dark)" : "var(--primary-E2)",
-        border: "2px solid var(--primary-E2)",
-        transform: hov ? "scale(1.05)" : "scale(1)",
-        boxShadow: hov ? "4px 5px 16px 2px var(--primary-59)" : "none",
-      },
-    },
-    "pill-resume": {
-      cls: "btn-pill-resume",
-      style: {
-        ...base,
-        justifyContent: "flex-start",
-        padding: "16px 24px",
-        fontSize: "14px",
-        height: "100%",
-        minWidth: "210px",
-        background: "var(--surface-0D)",
-        color: "var(--primary-E2)",
-        border: "2px solid var(--primary-E2)",
-      },
-    },
-    "pill-send": {
-      cls: "btn-pill-send",
-      style: {
-        ...base,
-        justifyContent: "flex-start",
-        padding: "24px 16px",
-        fontSize: "12px",
-        height: "46px",
-        minWidth: "180px",
-        background: sent ? "var(--surface-0D)" : "var(--primary-E2)",
-        color: sent ? "var(--primary-E2)" : "var(--text-dark)",
-        border: sent ? "0.5px solid var(--primary-E2)" : "none",
-      },
-    },
-  };
-
-  const current = variants[variant];
-
-  /* Pill box and icon differ between resume and send */
   const isPillResume = variant === "pill-resume";
   const isPillSend = variant === "pill-send";
   const isPill = isPillResume || isPillSend;
 
-  const pillBoxStyle = isPillResume
-    ? {
-        /* ghost pill: dark bg, turns accent on hover via CSS */
-        position: "absolute",
-        right: "7px",
-        background: hov ? "var(--primary)" : "var(--text-dark)",
-        height: "35px",
-        width: hov ? "calc(100% - 5.5%)" : "35px",
-        border: "1.5px solid var(--border-67)",
-        boxShadow: hov ? "0 0 8px 2px var(--primary-59)" : "none",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexShrink: 0,
-        zIndex: 2,
-        transition: "all 0.3 ease",
-      }
-    : {
-        /* send pill: accent bg, turns dark on hover via CSS */
-        position: "absolute",
-        right: "7px",
-        background: sent ? "var(--primary)" : "var(--text-dark)",
-        height: "35px",
-        width: hov ? "calc(100% - 7.5%)" : "35px",
-        boxShadow: sent ? "0 0 8px 2px var(--primary)" : hov ? "0 0 4px 2px var(--surface-05)" : "none",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexShrink: 0,
-        zIndex: 2,
-        transition: "all 0.3s ease"
-      };
+  // ── 1. Variant Style Map ──
+  const variantClasses = {
+    // 🟢 FIXED: Removed background color conflict from solid base
+    solid: `justify-center px-6 py-4 text-[14px] border-2 border-[var(--primary-E2)] transition-all duration-[800ms] ${
+      hov ? "text-[var(--text)] scale-105 shadow-[4px_5px_16px_2px_var(--primary-59)]" : "text-[var(--text-dark)] scale-100 shadow-none"
+    }`,
+    ghost: `justify-center px-6 py-4 text-[14px] bg-[var(--surface-0D)] border-2 border-[var(--primary-E2)] transition-all duration-[800ms] ${
+      hov ? "text-[var(--text-dark)] scale-105 shadow-[4px_5px_16px_2px_var(--primary-59)]" : "text-[var(--primary-E2)] scale-100 shadow-none"
+    }`,
+    "pill-resume": "justify-start px-6 py-4 text-[14px] h-full min-w-[210px] bg-[var(--surface-0D)] text-[var(--primary-E2)] border-2 border-[var(--primary-E2)]",
+    "pill-send": `justify-start px-4 py-6 text-[12px] h-[46px] min-w-[180px] ${
+      sent 
+        ? "bg-[var(--surface-0D)] text-[var(--primary-E2)] border-[0.5px] border-[var(--primary-E2)]" 
+        : "bg-[var(--primary-E2)] text-[var(--text-dark)] border-none"
+    }`,
+  };
+
+  // ── 2. Pill Expand Box Style Mapping ──
+  const pillBoxClasses = isPillResume
+    ? `absolute right-[7px] h-[35px] border-[1.5px] border-[var(--border-67)] flex items-center justify-center shrink-0 z-10 transition-all duration-500 ease-in-out ${
+        hov ? "bg-[var(--primary)] w-[calc(100%-14px)] shadow-[0_0_8px_2px_var(--primary-59)]" : "bg-[var(--text-dark)] w-[35px] shadow-none"
+      }`
+    : `absolute right-[7px] h-[35px] flex items-center justify-center shrink-0 z-10 transition-all duration-500 ease-in-out ${
+        sent
+          ? "bg-[var(--primary)] w-[35px] shadow-[0_0_8px_2px_var(--primary)]"
+          : hov
+            ? "bg-[var(--text-dark)] w-[calc(100%-14px)] shadow-[0_0_4px_2px_var(--surface-05)]"
+            : "bg-[var(--text-dark)] w-[35px] shadow-none"
+      }`;
 
   const PillIcon = () => {
     if (isPillSend) {
       return sent ? (
-        <FiCheck size={18} color="var(--text-dark)" />
+        <FiCheck size={18} className="text-[var(--text-dark)] shrink-0" />
       ) : (
-        <MdSend
-          className="pill-icon"
-          size={16}
-          style={{ color: "var(--primary-E2)", flexShrink: 0 }}
-        />
+        <MdSend size={16} className="text-[var(--primary-E2)] shrink-0" />
       );
     }
     return (
       <FiDownload
-        className="pill-icon"
-        style={{
-          fontSize: "18px",
-          color: hov ? "var(--text-dark)" : "var(--primary-E2)",
-          flexShrink: 0,
-        }}
+        size={18}
+        className={`shrink-0 transition-colors duration-200 ${
+          hov ? "text-[var(--text-dark)]" : "text-[var(--primary-E2)]"
+        }`}
       />
     );
   };
 
   return (
-    <>
-      <style>{SKEW_CSS}</style>
-      <Tag className={current.cls} style={current.style} {...tagProps}>
-        <span
-          style={{
-            position: "relative",
-            zIndex: 1,
-            ...(isPill && { marginRight: "42px" }),
-          }}
-        >
-          {children ?? label}
-        </span>
+    <Tag
+      style={{ fontFamily: "var(--font-mono)" }}
+      className={`relative overflow-hidden inline-flex items-center font-bold tracking-[0.06em] no-underline whitespace-nowrap cursor-pointer select-none ${variantClasses[variant]}`}
+      {...tagProps}
+    >
+      {/* ── High-Performance Angled Slide Layer ── */}
+      {(variant === "solid" || variant === "ghost") && (
+        <>
+          {/* Base Background Color for Solid state before hover */}
+          {variant === "solid" && (
+            <span className="absolute inset-0 bg-[var(--primary-E2)] z-0 pointer-events-none" />
+          )}
+          
+          {/* Slanted Wipe Pane */}
+          <motion.span
+            initial={{ left: "-150%" }} // 🟢 FIXED: Sent far off-screen so the tail doesn't leak into view on load
+            animate={{ left: hov ? "-15%" : "-150%" }} // 🟢 FIXED: Restructured coordinates to completely slide clear
+            transition={{ duration: 1, ease: [0.3, 1, 0.3, 1] }}
+            style={{
+              backgroundColor: variant === "solid" ? "#0c5f78" : "var(--primary-E2)",
+            }}
+            className="absolute top-0 h-full w-[140%] -skew-x-[35deg] z-0 pointer-events-none"
+          />
+        </>
+      )}
 
-        {isPill && (
-          <div className="pill-box" style={pillBoxStyle}>
-            <PillIcon />
-          </div>
-        )}
-      </Tag>
-    </>
+      {/* Button Text Payload Content */}
+      <span className={`relative z-10 transition-all duration-[600ms] ${isPill ? "mr-[42px]" : ""}`}>
+        {children ?? label}
+      </span>
+
+      {/* Slide Expanding Sliding Pill Assembly */}
+      {isPill && (
+        <div className={pillBoxClasses}>
+          <PillIcon />
+        </div>
+      )}
+    </Tag>
   );
 }
