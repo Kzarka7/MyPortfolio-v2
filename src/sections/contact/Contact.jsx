@@ -9,24 +9,13 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        position: "relative",
-        zIndex: 1,
-      }}
+      className="min-h-screen flex items-center relative z-10"
     >
-      <div
-        style={{
-          padding: "80px 0",
-          maxWidth: "1200px",
-          width: "100%",
-          margin: "0 auto",
-        }}
-      >
+      <div className="py-20 px-4 md:px-6 lg:px-0 max-w-[1200px] w-full mx-auto">
+        {/* Section Header */}
         <SectionHeader {...sectionHeader.contact} />
 
+        {/* Contact Content Card Component */}
         <ContactCard />
       </div>
     </section>

@@ -6,11 +6,8 @@ import CornerBrackets from "../../components/CornerBrackets";
 import Button from "../../components/Button";
 
 const MAX_CHARS = 1000;
-
-/* ── Ease-out expo — fluid, never linear ── */
 const EASE = [0.16, 1, 0.3, 1];
 
-/* ── EmailJS Keys ── */
 const SERVICE_ID = "service_pdcj379";
 const TEMPLATE_ID = "template_jqa9msp";
 const PUBLIC_KEY = "hJegStJOIQE5IWyyM";
@@ -25,14 +22,10 @@ export default function ContactCard() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  /* ── Whitelist Security Email Submission System ── */
-  /* ── Clean & Balanced Submission Security ── */
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const emailClean = form.email.trim().toLowerCase();
 
-    // 1. Structural Verification: Ensures standard structure with a valid 2-6 char TLD
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (!emailRegex.test(emailClean)) {
       alert("Transmission failed: Invalid email structure detected.");
@@ -43,8 +36,6 @@ export default function ContactCard() {
     const username = parts[0];
     const domain = parts[1];
 
-    // 2. Streamlined Mash Filter: Rejects obvious keyboard mashes (e.g., asdfg, qweqwe)
-    // Checks for 5+ consecutive consonants OR a simple character repetition
     const continuousConsonants = /[^aeiouy._%+-]{5,}/i;
     const repeatingPattern = /(.)\1{4,}/;
 
@@ -54,16 +45,12 @@ export default function ContactCard() {
       domain.includes("qwe") ||
       username === "test"
     ) {
-      alert(
-        "System Warning: Submission blocked. Please use a valid email identity.",
-      );
+      alert("System Warning: Submission blocked. Please use a valid email identity.");
       return;
     }
 
-    // ── Validation Passed: Fire EmailJS Pipeline ──
     try {
       setSending(true);
-
       const currentTimestamp = new Date().toLocaleString("en-US", {
         dateStyle: "medium",
         timeStyle: "short",
@@ -86,9 +73,7 @@ export default function ContactCard() {
       setTimeout(() => setSent(false), 4000);
     } catch (err) {
       console.error("System Interface Fault - EmailJS Error:", err);
-      alert(
-        "Transmission pipeline interrupted. Please review your server keys.",
-      );
+      alert("Transmission pipeline interrupted. Please review your server keys.");
     } finally {
       setSending(false);
     }
@@ -105,32 +90,9 @@ export default function ContactCard() {
       ? "#f59e0b"
       : "var(--muted)";
 
-  const inputStyle = (field) => ({
-    width: "100%",
-    background: "transparent",
-    border:
-      focused === field
-        ? "0.5px solid var(--border-67)"
-        : "0.5px solid var(--border-2E)",
-    padding: "13px 16px",
-    fontFamily: "var(--font-mono)",
-    fontSize: "12px",
-    color: "var(--text)",
-    outline: "none",
-    letterSpacing: "0.03em",
-    transition: "border-color 0.2s ease",
-    cursor: "text",
-  });
-
-  const labelStyle = {
-    fontFamily: "var(--font-mono)",
-    fontSize: "14px",
-    color: "var(--primary)",
-    letterSpacing: "0.14em",
-    marginBottom: "6px",
-    textTransform: "uppercase",
-    display: "block",
-  };
+  // ── Shared Base Class Definitions ──
+  const labelClassName = "text-[14px] text-[var(--primary)] tracking-[0.14em] mb-1.5 uppercase block";
+  const baseInputClassName = "w-full bg-transparent p-[13px_16px] text-[12px] text-[var(--text)] outline-none tracking-[0.03em] border-[0.5px] transition-colors duration-200 cursor-text";
 
   return (
     <motion.div
@@ -141,31 +103,16 @@ export default function ContactCard() {
       whileHover={{ y: -6, transition: { duration: 0.3, ease: EASE } }}
       viewport={{ once: false, amount: 0.1 }}
       transition={{ duration: 0.8, ease: EASE }}
-      style={{
-        border: hov
-          ? "0.5px solid var(--border-67)"
-          : "0.5px solid var(--border-2E)",
-        background: "var(--surface)",
-        padding: "40px",
-        position: "relative",
-        willChange: "transform",
-        transition: "border 0.3s ease",
-      }}
+      className={`bg-[var(--surface)] p-6 md:p-10 border-[0.5px] relative will-change-transform transition-colors duration-300 ${
+        hov ? "border-[var(--border-67)]" : "border-[var(--border-2E)]"
+      }`}
     >
       <CornerBrackets color="var(--primary)" size="14" strokeWidth="1.2" />
 
-      {/* Label row */}
+      {/* Cyber System Header Bar */}
       <div
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "9px",
-          color: "var(--disabled)",
-          letterSpacing: "0.16em",
-          textTransform: "uppercase",
-          marginBottom: "28px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
+        style={{ fontFamily: "var(--font-mono)" }}
+        className="text-[9px] text-[var(--disabled)] tracking-[0.16em] uppercase mb-7 flex justify-between select-none"
       >
         <span>FORM_TRANSMISSION.JSX</span>
         <AnimatePresence mode="wait">
@@ -176,30 +123,19 @@ export default function ContactCard() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            {sending
-              ? "STATUS: SENDING"
-              : sent
-                ? "STATUS: SENT"
-                : "STATUS: READY"}
+            {sending ? "STATUS: SENDING" : sent ? "STATUS: SENT" : "STATUS: READY"}
           </motion.span>
         </AnimatePresence>
       </div>
 
-      <form
-        onSubmit={handleSubmit}
-        autoComplete="off"
-        style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-      >
-        {/* Name + Email */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "16px",
-          }}
-        >
+      <form onSubmit={handleSubmit} autoComplete="off" className="flex flex-col gap-5">
+        {/* Input Block: Name + Email */}
+        {/* 🟢 FIXED: Stacks vertically on mobile and turns into 2 columns on tablets/desktops */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <span style={labelStyle}>Name</span>
+            <span style={{ fontFamily: "var(--font-mono)" }} className={labelClassName}>
+              Name
+            </span>
             <input
               type="text"
               name="name"
@@ -208,14 +144,20 @@ export default function ContactCard() {
               onFocus={() => setFocused("name")}
               onBlur={() => setFocused(null)}
               placeholder="Your name"
-              style={inputStyle("name")}
+              style={{ fontFamily: "var(--font-mono)" }}
+              className={`${baseInputClassName} ${
+                focused === "name" ? "border-[var(--border-67)]" : "border-[var(--border-2E)]"
+              }`}
               required
               autoComplete="off"
               disabled={sending}
             />
           </div>
+
           <div>
-            <span style={labelStyle}>Email</span>
+            <span style={{ fontFamily: "var(--font-mono)" }} className={labelClassName}>
+              Email
+            </span>
             <input
               type="email"
               name="email"
@@ -224,7 +166,10 @@ export default function ContactCard() {
               onFocus={() => setFocused("email")}
               onBlur={() => setFocused(null)}
               placeholder="you@email.com"
-              style={inputStyle("email")}
+              style={{ fontFamily: "var(--font-mono)" }}
+              className={`${baseInputClassName} ${
+                focused === "email" ? "border-[var(--border-67)]" : "border-[var(--border-2E)]"
+              }`}
               required
               autoComplete="off"
               disabled={sending}
@@ -232,9 +177,11 @@ export default function ContactCard() {
           </div>
         </div>
 
-        {/* Message + character counter */}
+        {/* Input Block: Message Textarea Section */}
         <div>
-          <span style={labelStyle}>Message</span>
+          <span style={{ fontFamily: "var(--font-mono)" }} className={labelClassName}>
+            Message
+          </span>
           <textarea
             name="message"
             value={form.message}
@@ -247,73 +194,38 @@ export default function ContactCard() {
             required
             autoComplete="off"
             disabled={sending}
-            style={{ ...inputStyle("message"), resize: "none" }}
+            style={{ fontFamily: "var(--font-mono)" }}
+            className={`${baseInputClassName} resize-none ${
+              focused === "message" ? "border-[var(--border-67)]" : "border-[var(--border-2E)]"
+            }`}
           />
 
-          {/* Character counter */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginTop: "16px",
-            }}
-          >
-            <div
-              style={{
-                flex: 1,
-                height: "1px",
-                background: "var(--border-2E)",
-                marginRight: "12px",
-                overflow: "hidden",
-                position: "relative",
-              }}
-            >
+          {/* Interactive Character Progress bar footer */}
+          <div className="flex items-center justify-between mt-4">
+            <div className="flex-1 h-[1px] bg-[var(--border-2E)] mr-3 overflow-hidden relative">
               <motion.div
                 animate={{
                   scaleX: pct,
-                  backgroundColor: isAtLimit
-                    ? "#ef4444"
-                    : isNearLimit
-                      ? "#f59e0b"
-                      : "var(--primary)",
+                  backgroundColor: isAtLimit ? "#ef4444" : isNearLimit ? "#f59e0b" : "var(--primary)",
                 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  transformOrigin: "left",
-                  willChange: "transform",
-                }}
+                className="absolute inset-0 origin-left will-change-transform"
               />
             </div>
 
             <motion.span
               animate={{ color: counterColor }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "10px",
-                letterSpacing: "0.08em",
-                flexShrink: 0,
-                fontVariantNumeric: "tabular-nums",
-              }}
+              style={{ fontFamily: "var(--font-mono)" }}
+              className="text-[10px] tracking-[0.08em] shrink-0 font-variant-numeric-tabular-nums"
             >
               {charCount} / {MAX_CHARS}
             </motion.span>
           </div>
         </div>
 
-        {/* Submit row */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "20px",
-            flexWrap: "wrap",
-          }}
-        >
+        {/* System Logs & Submission Action Row */}
+        <div className="flex items-center justify-between gap-5 flex-wrap">
           <AnimatePresence mode="wait">
             <motion.span
               key={sending ? "sending" : sent ? "received" : "required"}
@@ -321,12 +233,8 @@ export default function ContactCard() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "9px",
-                color: "var(--disabled)",
-                letterSpacing: "0.1em",
-              }}
+              style={{ fontFamily: "var(--font-mono)" }}
+              className="text-[9px] text-[var(--disabled)] tracking-[0.1em]"
             >
               {sending
                 ? "// processing upload data..."
@@ -336,12 +244,7 @@ export default function ContactCard() {
             </motion.span>
           </AnimatePresence>
 
-          <Button
-            variant="pill-send"
-            type="submit"
-            disabled={sending}
-            sent={sent}
-          >
+          <Button variant="pill-send" type="submit" disabled={sending} sent={sent}>
             {sending ? "SENDING..." : sent ? "MESSAGE SENT" : "SEND MESSAGE"}
           </Button>
         </div>
