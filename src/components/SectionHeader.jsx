@@ -13,74 +13,36 @@ export default function SectionHeader({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false }}
       transition={{ duration: 0.7 }}
-      style={{
-        display: "flex", // ── Changed from grid to flex ──
-        justifyContent: "space-between", // Pushes the description to the right
-        alignItems: "flex-end",
-        flexWrap: "wrap", // Protects your text layouts on mobile screens
-        gap: "40px",
-        marginBottom: "40px",
-      }}
+      /* 🟢 FIXED: Switched from items-center to items-stretch for reliable multi-row scaling */
+      className="flex flex-col md:flex-row justify-between items-stretch md:items-end gap-1 md:gap-10 mb-8 text-center md:text-left"
     >
       {/* Left Column Container */}
-      <div style={{ flex: "1 1 auto", minWidth: "250px" }}>
+      <div className="flex-1 min-w-[250px]">
         <div
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "12px",
-            color: "var(--primary-C2)",
-            letterSpacing: "0.16em",
-            textTransform: "uppercase",
-            marginBottom: "8px",
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
+          style={{ fontFamily: "var(--font-mono)" }}
+          className="text-[12px] font-medium text-[var(--primary-C2)] tracking-[0.16em] uppercase flex items-center justify-center md:justify-start gap-2.5 mb-2"
         >
-          <span
-            style={{
-              width: "20px",
-              height: "0.5px",
-              background: "var(--primary-C2)",
-              display: "block",
-            }}
-          />
+          <span className="w-5 h-[0.5px] bg-[var(--primary-C2)] block" />
           [ {number} ] — {label}
         </div>
 
         <h2
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "clamp(26px, 3.5vw, 42px)",
-            fontWeight: 700,
-            color: "var(--text)",
-            letterSpacing: "-0.02em",
-            lineHeight: 1.1,
-          }}
+          style={{ fontFamily: "var(--font-mono)" }}
+          className="text-[clamp(40px,3.5vw,42px)] font-bold text-[var(--text)] tracking-[-0.02em] leading-[1.1]"
         >
           {title}
           {highlight && (
-            <span style={{ color: "var(--primary)" }}> {highlight}</span>
+            <span className="text-[var(--primary)]"> {highlight}</span>
           )}
         </h2>
       </div>
 
-      {/* Right Column Container: Renders and takes up space ONLY if description exists */}
+      {/* Right Column Container */}
       {description && (
         <div
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "16px",
-            color: "var(--muted)",
-            lineHeight: 1.8,
-            fontWeight: 300,
-            textAlign: "end",
-            flex: "1 1 400px", // Allows the text content block to scale correctly
-            maxWidth: "580px",
-            margin: 0,
-            display: "flex",
-            justifyContent: "end",
-          }}
+          style={{ fontFamily: "var(--font-body)" }}
+          /* 🟢 FIXED: Changed alignment logic to sit center on mobile, text-right on desktops, with zero text stretching layout voids */
+          className="text-[16px] text-[var(--muted)] leading-[1.8] font-light flex-1 max-w-[580px] text-center md:text-right mt-2 md:mt-0"
         >
           {description}
         </div>

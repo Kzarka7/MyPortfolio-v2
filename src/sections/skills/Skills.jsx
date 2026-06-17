@@ -9,26 +9,14 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        position: "relative",
-        zIndex: 1,
-      }}
+      className="relative flex items-center min-h-screen mx-4 z-[1]"
     >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
+      <div className="w-full max-w-[1200px] mx-auto">
         {/* Header */}
         <SectionHeader {...sectionHeader.skills} />
 
         {/* Categories */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
+        <div className="flex flex-col gap-12">
           {skillCategories.map((cat, catIndex) => (
             <motion.div
               key={cat.category}
@@ -40,56 +28,28 @@ export default function Skills() {
                 delay: catIndex * 0.08,
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "16px",
-                  marginBottom: "16px",
-                }}
-              >
+              {/* Category Info Strip */}
+              <div className="flex items-center gap-4 mb-4">
                 <div
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    color: "var(--text-gray)",
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    whiteSpace: "nowrap",
-                  }}
+                  style={{ fontFamily: "var(--font-mono)" }}
+                  className="text-[12px] font-medium text-[var(--text-gray)] tracking-[0.2em] uppercase whiteSpace: nowrap"
                 >
                   {cat.category}
                 </div>
 
-                <div
-                  style={{
-                    flex: 1,
-                    height: "0.5px",
-                    background: "var(--muted)",
-                  }}
-                />
+                <div className="flex-1 h-[0.5px] bg-[var(--muted)]" />
 
                 <div
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "9px",
-                    color: "var(--text-gray)",
-                    letterSpacing: "0.1em",
-                  }}
+                  style={{ fontFamily: "var(--font-mono)" }}
+                  className="text-[9px] text-[var(--text-gray)] tracking-[0.1em]"
                 >
                   {cat.items.length} tools
                 </div>
               </div>
 
-              {/* Skill Card */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(4, 1fr)",
-                  gap: "10px",
-                }}
-              >
+              {/* ── RESPONSIVE SKILL CARD GRID ── */}
+              {/* Starts as 1 column on mobile, changes to 2 columns on small screens, and scales up to 4 columns on desktop */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
                 {cat.items.map((skill, index) => (
                   <SkillCard key={skill.name} skill={skill} index={index} />
                 ))}

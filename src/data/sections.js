@@ -12,7 +12,7 @@ export const sectionHeader = {
     title: "Tech",
     highlight: "Stack",
     description:
-      "Tools and technologies I work with daily. Each card shows the tech, a short description of how I use it, and a proficiency bar. Hover to reveal brand colors.",
+      "Tools and technologies I work with daily.",
   },
 
   projects: {

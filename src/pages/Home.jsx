@@ -12,13 +12,13 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="flex flex-col gap-24 md:gap-32">
         <div className="grid-bg" />
 
         <Hero />
-        {/* <Skills />
+        <Skills />
         <Projects />
-        <Education />
+        {/* <Education />
         <Contact />
         <Footer /> */}
       </main>

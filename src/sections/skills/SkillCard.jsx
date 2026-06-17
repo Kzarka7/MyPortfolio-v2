@@ -18,108 +18,81 @@ export default function SkillCard({ skill, index }) {
         border: hov
           ? `0.5px solid ${skill.color}55`
           : "0.5px solid var(--border-2E)",
-        padding: "24px 20px",
         background: hov ? `${skill.color}08` : "var(--surface)",
-        transition: "all 0.25s",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        gap: "14px",
       }}
+      className="relative flex flex-col gap-3.5 p-6 transition-all duration-250 ease-out"
     >
       {/* Corner brackets */}
-      <CornerBrackets color={hov ? skill.color : "var(--primary)"} size="10" strokeWidth="0.8" />
+      <CornerBrackets 
+        color={hov ? skill.color : "var(--primary)"} 
+        size="10" 
+        strokeWidth="0.8" 
+      />
 
       {/* Accent line */}
       <div
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "1.5px",
           background: skill.color,
           transform: hov ? "scaleX(1)" : "scaleX(0)",
-          transformOrigin: "left",
-          transition: "transform 0.5s ease",
         }}
+        className="absolute top-0 left-0 right-0 h-[1.5px] origin-left transition-transform duration-500 ease-in-out"
       />
 
-      {/* Icon */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "14px",
-        }}
-      >
+      {/* Icon & Content Row Container */}
+      <div className="flex items-center gap-3.5">
+        
+        {/* Icon Frame Wrapper */}
         <div
           style={{
-            width: "48px",
-            height: "48px",
             border: hov
               ? `0.5px solid ${skill.color}44`
               : "1.5px solid var(--border-2E)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
             background: hov ? `${skill.color}12` : "var(--surface-blue-05)",
           }}
+          className="w-12 h-12 flex items-center justify-center shrink-0"
         >
           <Icon
-            style={{
-              fontSize: "24px",
-              color: hov ? skill.color : "var(--text)",
-            }}
+            style={{ color: hov ? skill.color : "var(--text)" }}
+            className="text-[24px]"
           />
         </div>
 
-        <div>
+        {/* Text Details Block */}
+        <div className="min-w-0">
           <div
-            style={{
+            style={{ 
               fontFamily: "var(--font-mono)",
-              fontSize: "14px",
-              fontWeight: 700,
-              color: hov ? skill.color : "var(--text-gray)",
+              color: hov ? skill.color : "var(--text-gray)" 
             }}
+            className="text-[14px] font-bold tracking-tight truncate"
           >
             {skill.name}
           </div>
 
           <div
-            style={{
+            style={{ 
               fontFamily: "var(--font-body)",
-              fontSize: "12px",
-              color: hov ? `${skill.color}d2` : "var(--text-gray)",
+              color: hov ? `${skill.color}d2` : "var(--text-gray)" 
             }}
+            className="text-[12px] leading-snug mt-0.5 line-clamp-2"
           >
             {skill.desc}
           </div>
         </div>
       </div>
 
-      {/* Bar */}
-      <div
-        style={{
-          height: "2px",
-          background: "var(--border-2E)",
-          overflow: "hidden",
-        }}
-      >
+      {/* Animated Proficiency Bar */}
+      <div className="h-[2px] bg-[var(--border-2E)] overflow-hidden w-full mt-auto">
         <motion.div
           initial={{ width: 0 }}
-          whileInView={{
-            width: "100%",
-          }}
+          whileInView={{ width: "100%" }}
           viewport={{ once: false }}
           transition={{
             duration: 0.8,
             delay: index * 0.06,
           }}
-          style={{
-            height: "100%",
-            background: hov ? skill.color : "var(--disabled)",
-          }}
+          style={{ background: hov ? skill.color : "var(--disabled)" }}
+          className="h-full"
         />
       </div>
     </motion.div>
