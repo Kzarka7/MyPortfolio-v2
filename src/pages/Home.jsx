@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col gap-24 md:gap-32">
+      <main className="flex flex-col gap-24 md:gap-0">
         <div className="grid-bg" />
 
         <Hero />
