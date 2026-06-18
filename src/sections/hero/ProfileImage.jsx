@@ -89,7 +89,7 @@ export default function ProfileImage() {
           className="absolute top-0 left-0 right-0 h-px pointer-events-none will-change-transform"
           style={{
             background:
-              "linear-gradient(90deg, transparent, var(--primary-C2), transparent)",
+              "linear-gradient(90deg, transparent, var(--primary), transparent)",
           }}
         />
       </GlareHover>
