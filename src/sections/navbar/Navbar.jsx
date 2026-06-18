@@ -40,7 +40,7 @@ export default function Navbar() {
       {/* Floating Pill Frame */}
       <div
         /* 🟢 FIXED: Corrected 'gl:py-4' typo to 'lg:py-4' */
-        className={`w-full flex items-center justify-between px-4 md:px-8 py-3 lg:py-4 rounded-2xl border border-[var(--border-3D)] shadow-[0_8px_24px_rgba(27,27,27,0.3)] backdrop-blur-[50px] transition-all duration-300 ease-in-out ${
+        className={`w-full flex items-center justify-between px-4 md:px-8 py-2 lg:py-4 rounded-2xl border border-[var(--border-3D)] shadow-[0_8px_24px_rgba(27,27,27,0.3)] backdrop-blur-[50px] transition-all duration-300 ease-in-out ${
           scrolled ? "bg-[#ffffff08]" : "bg-[#ffffff06]"
         }`}
       >
@@ -71,9 +71,9 @@ export default function Navbar() {
             aria-label="Toggle Menu"
           >
             {isOpen ? (
-              <FiX className="w-[22px] h-[22px]" />
+              <FiX className="w-6 h-6" />
             ) : (
-              <FiMenu className="w-[22px] h-[22px]" />
+              <FiMenu className="w-6 h-6" />
             )}
           </button>
         </div>

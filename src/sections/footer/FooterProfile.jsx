@@ -7,6 +7,7 @@ export default function FooterProfile() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false }}
       transition={{ duration: 0.7 }}
+      className="text-center"
     >
       {/* ── Profile Brand Header ── */}
       <div

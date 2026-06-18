@@ -30,15 +30,15 @@ export default function Button({
 
   // ── 1. Variant Style Map ──
   const variantClasses = {
-    // 🟢 FIXED: Removed background color conflict from solid base
-    solid: `justify-center px-6 py-4 text-[14px] border-2 border-[var(--primary-E2)] transition-all duration-[800ms] ${
+    solid: `w-full sm:w-auto justify-center px-6 py-4 text-[14px] border-2 border-[var(--primary-E2)] transition-all duration-[800ms] ${
       hov ? "text-[var(--text)] scale-105 shadow-[4px_5px_16px_2px_var(--primary-59)]" : "text-[var(--text-dark)] scale-100 shadow-none"
     }`,
-    ghost: `justify-center px-6 py-4 text-[14px] bg-[var(--surface-0D)] border-2 border-[var(--primary-E2)] transition-all duration-[800ms] ${
+    ghost: `w-full sm:w-auto justify-center px-6 py-4 text-[14px] bg-[var(--surface-0D)] border-2 border-[var(--primary-E2)] transition-all duration-[800ms] ${
       hov ? "text-[var(--text-dark)] scale-105 shadow-[4px_5px_16px_2px_var(--primary-59)]" : "text-[var(--primary-E2)] scale-100 shadow-none"
     }`,
-    "pill-resume": "justify-start px-6 py-4 text-[14px] h-full min-w-[210px] bg-[var(--surface-0D)] text-[var(--primary-E2)] border-2 border-[var(--primary-E2)]",
-    "pill-send": `justify-start px-4 py-6 text-[12px] h-[46px] min-w-[180px] ${
+    // 🟢 UPDATED: Changed justify-between to justify-center and swapped px-6 for balanced custom spacing limits
+    "pill-resume": "w-full sm:w-auto sm:min-w-[210px] justify-center py-4 text-[14px] h-full bg-[var(--surface-0D)] text-[var(--primary-E2)] border-2 border-[var(--primary-E2)] pl-[12px] pr-3 sm:pl-6 sm:pr-6",
+    "pill-send": `w-full sm:w-auto sm:min-w-[180px] justify-center py-6 text-[12px] h-[46px] pl-[8px] pr-2 sm:pl-4 sm:pr-4 ${
       sent 
         ? "bg-[var(--surface-0D)] text-[var(--primary-E2)] border-[0.5px] border-[var(--primary-E2)]" 
         : "bg-[var(--primary-E2)] text-[var(--text-dark)] border-none"
@@ -79,7 +79,7 @@ export default function Button({
   return (
     <Tag
       style={{ fontFamily: "var(--font-mono)" }}
-      className={`relative overflow-hidden inline-flex items-center font-bold tracking-[0.06em] no-underline whitespace-nowrap cursor-pointer select-none ${variantClasses[variant]}`}
+      className={`relative overflow-hidden flex sm:inline-flex items-center font-bold tracking-[0.06em] no-underline whitespace-nowrap cursor-pointer select-none ${variantClasses[variant]}`}
       {...tagProps}
     >
       {/* ── High-Performance Angled Slide Layer ── */}
@@ -92,8 +92,8 @@ export default function Button({
           
           {/* Slanted Wipe Pane */}
           <motion.span
-            initial={{ left: "-150%" }} // 🟢 FIXED: Sent far off-screen so the tail doesn't leak into view on load
-            animate={{ left: hov ? "-15%" : "-150%" }} // 🟢 FIXED: Restructured coordinates to completely slide clear
+            initial={{ left: "-150%" }}
+            animate={{ left: hov ? "-15%" : "-150%" }}
             transition={{ duration: 1, ease: [0.3, 1, 0.3, 1] }}
             style={{
               backgroundColor: variant === "solid" ? "#0c5f78" : "var(--primary-E2)",
@@ -104,7 +104,8 @@ export default function Button({
       )}
 
       {/* Button Text Payload Content */}
-      <span className={`relative z-10 transition-all duration-[600ms] ${isPill ? "mr-[42px]" : ""}`}>
+      {/* 🟢 UPDATED: Swapped fixed margin logic on small screens for perfectly balanced text centering */}
+      <span className={`relative z-10 transition-all duration-[600ms] mx-auto sm:mx-0 ${isPill ? "sm:mr-[42px]" : ""}`}>
         {children ?? label}
       </span>
 

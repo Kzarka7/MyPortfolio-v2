@@ -28,7 +28,6 @@ export default function ProjectCard({ project, direction }) {
     <motion.div
       initial={{ opacity: 0, y: 48 }}
       whileInView={{ opacity: 1, y: 0 }}
-      /* y-only lift — GPU composited, no layout reflow */
       whileHover={{
         y: -6,
         transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
@@ -37,147 +36,150 @@ export default function ProjectCard({ project, direction }) {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="relative will-change-transform"
     >
-      <AnimatePresence mode="wait" custom={direction}>
-        <motion.div
-          onHoverStart={() => setHov(true)}
-          onHoverEnd={() => setHov(false)}
-          key={project.id}
-          custom={direction}
-          variants={slideVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          style={{
-            border: hov
-              ? "0.5px solid var(--border-67)"
-              : "0.5px solid var(--border-2E)",
-          }}
-          className="bg-[var(--surface)] relative overflow-hidden transition-colors duration-300 ease-in-out"
-        >
-          {/* Top accent line */}
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-[var(--primary-C2)] z-10" />
+      {/* ── 🎯 FIX: Added clipping viewport wrapper directly around AnimatePresence ── */}
+      <div className="w-full overflow-hidden relative rounded-2xl">
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            onHoverStart={() => setHov(true)}
+            onHoverEnd={() => setHov(false)}
+            key={project.id}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            style={{
+              border: hov
+                ? "0.5px solid var(--border-67)"
+                : "0.5px solid var(--border-2E)",
+            }}
+            className="bg-[var(--surface)] relative overflow-hidden transition-colors duration-300 ease-in-out rounded-2xl"
+          >
+            {/* Top accent line */}
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-[var(--primary-C2)] z-10" />
 
-          <CornerBrackets color="var(--primary)" size="14" strokeWidth="1.2" />
+            <CornerBrackets color="var(--primary)" size="14" strokeWidth="1.2" />
 
-          {/* ── IMAGE SECTION — Fluid Responsive Heights ── */}
-          <div className="w-full h-[260px] sm:h-[340px] md:h-[400px] relative p-6 sm:p-8 overflow-hidden">
-            <TiltedCard
-              imageSrc={project.image}
-              altText={project.title}
-              captionText={project.title}
-              containerHeight="100%"
-              containerWidth="100%"
-              imageHeight="100%"
-              imageWidth="100%"
-              scaleOnHover={1.04}
-              rotateAmplitude={8}
-              showMobileWarning={false}
-              showTooltip={true}
-              overlayContent={null}
-              displayOverlayContent={false}
-            />
+            {/* ── IMAGE SECTION — Fluid Responsive Heights ── */}
+            <div className="w-full h-[260px] sm:h-[340px] md:h-[400px] relative p-6 sm:p-8 overflow-hidden">
+              <TiltedCard
+                imageSrc={project.image}
+                altText={project.title}
+                captionText={project.title}
+                containerHeight="100%"
+                containerWidth="100%"
+                imageHeight="100%"
+                imageWidth="100%"
+                scaleOnHover={1.04}
+                rotateAmplitude={8}
+                showMobileWarning={false}
+                showTooltip={true}
+                overlayContent={null}
+                displayOverlayContent={false}
+              />
 
-            {/* Status badge */}
-            <div
-              style={{ backdropFilter: "blur(6px)" }}
-              className="absolute top-10 right-9 sm:top-12 sm:right-12 text-[9px] text-[var(--primary)] border-[0.5px] border-[var(--border-67)] bg-[var(--surface-blue-05)] py-1 px-3 tracking-widest font-mono z-20 pointer-events-none"
-            >
-              {project.status}
+              {/* Status badge */}
+              <div
+                style={{ backdropFilter: "blur(6px)" }}
+                className="absolute top-10 right-9 sm:top-12 sm:right-12 text-[9px] text-[var(--primary)] border-[0.5px] border-[var(--border-67)] bg-[var(--surface-blue-05)] py-1 px-3 tracking-widest font-mono z-20 pointer-events-none"
+              >
+                {project.status}
+              </div>
+
+              {/* ID + year */}
+              <div className="absolute top-11 left-9 sm:top-12 sm:left-12 text-[10px] text-[var(--primary-C2)] tracking-widest font-mono z-20 pointer-events-none">
+                — {project.id} · {project.year}
+              </div>
             </div>
 
-            {/* ID + year */}
-            <div className="absolute top-11 left-9 sm:top-12 sm:left-12 text-[10px] text-[var(--primary-C2)] tracking-widest font-mono z-20 pointer-events-none">
-              — {project.id} · {project.year}
-            </div>
-          </div>
+            {/* ── CARD BODY CONTENT ── */}
+            <div className="p-6 sm:p-8 border-t-[0.5px] border-[var(--border-2E)]">
+              
+              {/* Title, Roles & Primary Action Target Split Block */}
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-5 mb-4">
+                <div>
+                  <h3
+                    style={{ fontFamily: "var(--font-mono)" }}
+                    className="text-[20px] sm:text-[22px] font-bold text-[var(--text)] tracking-tight mb-2 leading-snug"
+                  >
+                    {project.title}
+                  </h3>
 
-          {/* ── CARD BODY CONTENT ── */}
-          <div className="p-6 sm:p-8 border-t-[0.5px] border-[var(--border-2E)]">
-            
-            {/* Title, Roles & Primary Action Target Split Block */}
-            <div className="flex flex-col md:flex-row md:items-start justify-between gap-5 mb-4">
-              <div>
-                <h3
-                  style={{ fontFamily: "var(--font-mono)" }}
-                  className="text-[20px] sm:text-[22px] font-bold text-[var(--text)] tracking-tight mb-2 leading-snug"
-                >
-                  {project.title}
-                </h3>
+                  {/* Developer Roles Badges */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.roles.map((role) => (
+                      <span
+                        key={role}
+                        style={{ fontFamily: "var(--font-barl)" }}
+                        className="text-[14px] sm:text-[16px] text-[var(--primary)] border-[0.5px] border-[var(--border-67)] py-1 px-3 tracking-wider bg-[var(--surface-blue-05)] uppercase"
+                      >
+                        {role}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-                {/* Developer Roles Badges */}
-                <div className="flex flex-wrap gap-1.5">
-                  {project.roles.map((role) => (
-                    <span
-                      key={role}
-                      style={{ fontFamily: "var(--font-barl)" }}
-                      className="text-[14px] sm:text-[16px] text-[var(--primary)] border-[0.5px] border-[var(--border-67)] py-1 px-3 tracking-wider bg-[var(--surface-blue-05)] uppercase"
-                    >
-                      {role}
-                    </span>
-                  ))}
+                {/* Action Anchors */}
+                <div className="flex gap-2.5 shrink-0 w-full md:w-auto mt-2 md:mt-0">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    onMouseEnter={() => setGithubHov(true)}
+                    onMouseLeave={() => setGithubHov(false)}
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      color: githubHov ? "var(--primary)" : "var(--text-gray)",
+                      borderColor: githubHov ? "var(--border-67)" : "var(--border-3D)",
+                    }}
+                    className="text-[12px] no-underline tracking-wider uppercase py-2 px-3.5 bg-[var(--surface-blue-05)] border-[0.5px] transition-colors duration-200 ease-out text-center flex-1 md:flex-none"
+                  >
+                    GitHub ↗
+                  </a>
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noreferrer"
+                    onMouseEnter={() => setLiveHov(true)}
+                    onMouseLeave={() => setLiveHov(false)}
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      backgroundColor: liveHov ? "var(--primary)" : "var(--primary-C2)",
+                    }}
+                    className="text-[12px] font-bold no-underline tracking-wider uppercase py-2 px-3.5 text-[var(--text-dark)] transition-colors duration-250 ease-out text-center flex-1 md:flex-none"
+                  >
+                    Live ↗
+                  </a>
                 </div>
               </div>
 
-              {/* Action Anchors */}
-              <div className="flex gap-2.5 shrink-0 w-full md:w-auto mt-2 md:mt-0">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  onMouseEnter={() => setGithubHov(true)}
-                  onMouseLeave={() => setGithubHov(false)}
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    color: githubHov ? "var(--primary)" : "var(--text-gray)",
-                    borderColor: githubHov ? "var(--border-67)" : "var(--border-3D)",
-                  }}
-                  className="text-[12px] no-underline tracking-wider uppercase py-2 px-3.5 bg-[var(--surface-blue-05)] border-[0.5px] transition-colors duration-200 ease-out text-center flex-1 md:flex-none"
-                >
-                  GitHub ↗
-                </a>
-                <a
-                  href={project.live}
-                  target="_blank"
-                  rel="noreferrer"
-                  onMouseEnter={() => setLiveHov(true)}
-                  onMouseLeave={() => setLiveHov(false)}
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    backgroundColor: liveHov ? "var(--primary)" : "var(--primary-C2)",
-                  }}
-                  className="text-[12px] font-bold no-underline tracking-wider uppercase py-2 px-3.5 text-[var(--text-dark)] transition-colors duration-250 ease-out text-center flex-1 md:flex-none"
-                >
-                  Live ↗
-                </a>
+              {/* Divider Line */}
+              <div className="h-[0.5px] bg-[var(--border-2E)] mb-4" />
+
+              {/* Long Form Summary Text Description */}
+              <p
+                style={{ fontFamily: "var(--font-body)" }}
+                className="text-[15px] sm:text-[16px] text-[var(--text-gray)] leading-relaxed font-light mb-5"
+              >
+                {project.desc}
+              </p>
+
+              {/* Framework Technical Specs Meta Tags */}
+              <div className="flex flex-wrap gap-1.5">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    style={{ fontFamily: "var(--font-mono)" }}
+                    className="text-[11px] sm:text-[12px] text-[var(--primary-C2)] border-[0.5px] border-[var(--border-67)] py-1 px-2.5 tracking-wide bg-[var(--surface-blue-05)]"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
-
-            {/* Divider Line */}
-            <div className="h-[0.5px] bg-[var(--border-2E)] mb-4" />
-
-            {/* Long Form Summary Text Description */}
-            <p
-              style={{ fontFamily: "var(--font-body)" }}
-              className="text-[15px] sm:text-[16px] text-[var(--text-gray)] leading-relaxed font-light mb-5"
-            >
-              {project.desc}
-            </p>
-
-            {/* Framework Technical Specs Meta Tags */}
-            <div className="flex flex-wrap gap-1.5">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  style={{ fontFamily: "var(--font-mono)" }}
-                  className="text-[11px] sm:text-[12px] text-[var(--primary-C2)] border-[0.5px] border-[var(--border-67)] py-1 px-2.5 tracking-wide bg-[var(--surface-blue-05)]"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 }

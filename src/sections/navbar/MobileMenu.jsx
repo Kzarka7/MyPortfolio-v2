@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { links } from "../../data/navbar";
 
 const containerVariants = {
@@ -24,9 +24,35 @@ const itemVariants = {
 
 export default function MobileMenu({ scrolled, onClose }) {
   const [activeId, setActiveId] = useState("");
+  // 🎯 Reference to track the menu container boundary
+  const menuRef = useRef(null);
 
-  /* Active section tracking */
+  // 🔄 Unified Hook: Tracks active sections, scrolls, and outside clicks
   useEffect(() => {
+    // 1. Capture the exact scroll position when the menu was opened
+    const initialScrollY = window.scrollY;
+    const scrollThreshold = 15; 
+
+    const handleScrollClose = () => {
+      const currentScrollY = window.scrollY;
+      if (Math.abs(currentScrollY - initialScrollY) > scrollThreshold) {
+        onClose();
+      }
+    };
+
+    // 2. Click Outside Handler
+    const handleClickOutside = (event) => {
+      // If the menu is open and the clicked target is NOT contained within menuRef, close it
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    window.addEventListener("scroll", handleScrollClose, { passive: true });
+    // Use mousedown or pointerdown for faster response times on mobile devices
+    window.addEventListener("mousedown", handleClickOutside);
+
+    // 3. Active Section Tracker (IntersectionObserver)
     const observers = [];
     links.forEach(({ id }) => {
       const el = document.getElementById(id);
@@ -40,17 +66,23 @@ export default function MobileMenu({ scrolled, onClose }) {
       obs.observe(el);
       observers.push(obs);
     });
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
+
+    // 🧼 Clean up everything when unmounting
+    return () => {
+      window.removeEventListener("scroll", handleScrollClose);
+      window.removeEventListener("mousedown", handleClickOutside);
+      observers.forEach((o) => o.disconnect());
+    };
+  }, [onClose]);
 
   return (
     <motion.div
+      ref={menuRef} // 🎯 Attach ref here
       key="mobile-menu"
       initial={{ opacity: 0, y: "-48px" }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: "-48px" }}
-      transition={{ duration: 0.3, ease: [5, 5, 5, 5] }}
-      /* 🟢 Dynamic background matching the glass navbar pill perfectly */
+      transition={{ duration: 0.3, ease: "easeOut" }}
       className={`w-full mt-2 z-[101] lg:hidden backdrop-blur-[50px] border border-[var(--border-3D)] rounded-2xl p-4 shadow-[0_8px_24px_rgba(27,27,27,0.3)] will-change-[transform,opacity] transition-colors duration-300 ease-in-out ${
         scrolled ? "bg-[#ffffff08]" : "bg-[#ffffff06]"
       }`}

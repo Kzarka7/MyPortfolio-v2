@@ -11,7 +11,7 @@ export default function Skills() {
       id="skills"
       className="relative flex items-center min-h-screen mx-4 z-[1]"
     >
-      <div className="w-full max-w-[1200px] mx-auto">
+      <div className="w-full max-w-[1200px] mx-auto py-20">
         {/* Header */}
         <SectionHeader {...sectionHeader.skills} />
 

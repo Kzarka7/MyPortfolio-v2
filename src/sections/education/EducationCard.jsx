@@ -13,7 +13,7 @@ export default function EducationCard({ education, index }) {
       transition={{ duration: 0.5, delay: index * 0.12 }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      className="grid grid-cols-[48px_1fr] gap-5 px-5 py-6 border-b border-[var(--border-3D)] cursor-pointer relative"
+      className="grid grid-cols-[48px_1fr] gap-5 md:px-5 py-6 border-b border-[var(--border-3D)] cursor-pointer relative"
     >
       {/* Interactive indicator bar pinned to the left edge */}
       <span
@@ -21,7 +21,7 @@ export default function EducationCard({ education, index }) {
           backgroundColor: education.color,
           transform: hov ? "scaleY(1)" : "scaleY(0)",
         }}
-        className="absolute left-0 top-0 bottom-0 w-[2px] origin-top transition-transform duration-300 ease-in-out"
+        className="hidden md:block absolute left-0 top-0 bottom-0 w-[2px] origin-top transition-transform duration-300 ease-in-out"
       />
 
       {/* Timeline Column (Icon Container + Connecting Line) */}
