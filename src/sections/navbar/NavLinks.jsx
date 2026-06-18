@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { links } from "../../data/navbar";
 
 export default function NavLinks() {
   const [activeId, setActiveId] = useState("");
-  const [hoveredLink, setHoveredLink] = useState(null);
 
   useEffect(() => {
     const observers = [];
@@ -25,61 +25,39 @@ export default function NavLinks() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  const getLinkStyle = (id) => {
-    const isActive = activeId === id;
-    const isHovered = hoveredLink === id;
-    return {
-      fontFamily: "var(--font-mono)",
-      fontSize: "12px",
-      fontWeight: 500,
-      color: isActive || isHovered ? "var(--primary)" : "var(--text-gray)",
-      textDecoration: "none",
-      letterSpacing: "0.14em",
-      textTransform: "uppercase",
-      transition: "color 0.2s",
-      cursor: "pointer",
-      position: "relative",
-      paddingBottom: "2px",
-    };
-  };
-
-  const activeLineStyle = (id) => ({
-    position: "absolute",
-    bottom: "-6px",
-    left: "50%",
-    transform: "translateX(-50%)",
-    width: "100%",
-    height: "1.5px",
-    background: "var(--primary)",
-    boxShadow: "0 0 12px var(--primary)",
-    opacity: activeId === id ? 1 : 0,
-    transition: "opacity 0.25s",
-  });
-
   return (
-    <ul
-      style={{
-        display: "flex",
-        gap: "28px",
-        listStyle: "none",
-        margin: 0,
-        padding: 0,
-      }}
-    >
-      {links.map(({ label, href, id }) => (
-        <li key={id}>
-          <a
-            href={href}
-            style={getLinkStyle(id)}
-            onMouseEnter={() => setHoveredLink(id)}
-            onMouseLeave={() => setHoveredLink(null)}
-          >
-            {label}
-            {/* Active line indicator */}
-            <span style={activeLineStyle(id)} />
-          </a>
-        </li>
-      ))}
+    <ul className="flex items-center gap-2 list-none m-0 p-0">
+      {links.map(({ label, href, id }) => {
+        const isActive = activeId === id;
+
+        return (
+          <li key={id}>
+            <a
+              href={href}
+              style={{ fontFamily: "var(--font-mono)" }}
+              /* ── 🛠️ UPDATED: Added px-4 py-2 to create breathing room inside the container square, and z-10 on text layers ── */
+              className={`relative px-4 py-2 text-[12px] font-medium uppercase tracking-[0.14em] no-underline transition-colors duration-300 cursor-pointer select-none block rounded-xl ${
+                isActive 
+                  ? "text-[var(--primary)]" 
+                  : "text-[var(--text-gray)] hover:text-[var(--primary)]"
+              }`}
+            >
+              {/* Force text above the background slide wrapper pane */}
+              <span className="relative z-10">{label}</span>
+
+              {/* ── Dynamic Layout Animated Slide Square Capsule ── */}
+              {isActive && (
+                <motion.span
+                  layoutId="desktop-nav-active-square"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  /* ── 🛠️ UPDATED: Changed from a bottom line configuration to full bounding coverage ── */
+                  className="absolute inset-0 z-0 bg-[var(--primary-1F)] border border-[var(--border-67)] rounded-xl shadow-[0_0_8px_rgba(var(--primary-rgb),0.15)]"
+                />
+              )}
+            </a>
+          </li>
+        );
+      })}
     </ul>
   );
 }
