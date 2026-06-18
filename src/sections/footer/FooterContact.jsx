@@ -2,7 +2,7 @@ export default function FooterContact({ item }) {
   const Icon = item.icon;
 
   return (
-    <div className="flex justify-center items-center gap-2.5">
+    <div className="flex justify-center md:justify-start items-center gap-2.5">
       {/* Contact Identifier Icon */}
       <Icon className="text-[12px] text-[var(--text)] shrink-0" />
       

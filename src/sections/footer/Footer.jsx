@@ -62,13 +62,13 @@ export default function Footer() {
               <span className={lineClassName} />
             </div>
 
-            <div className="flex gap-5 mb-6 items-center justify-center">
+            <div className="flex gap-5 mb-6 items-center justify-center md:justify-start">
               {socialLinks.map((s) => (
                 <FooterLinks key={s.label} item={s} />
               ))}
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center md:justify-start">
               <Availabity />
             </div>
           </motion.div>
