@@ -59,7 +59,7 @@ export default function ThemeToggle() {
         style={{
           boxShadow: themeHover
             ? isDark
-              ? "0 0 12px var(--primary-99)"
+              ? "0 0 12px var(--shadow-colored)"
               : "0 0 12px rgba(0, 0, 0, 0.15)"
             : "none",
         }}

@@ -23,9 +23,9 @@ export default function ProfileImage() {
       <motion.div
         animate={{
           boxShadow: [
-            "0 0 0px 0px var(--primary-00)",
-            "0 0 36px 4px var(--border-primary)",
-            "0 0 0px 0px var(--primary-00)",
+            "0 0 0px 0px var(--shadow-profile)",
+            "0 0 36px 4px var(--shadow-profile)",
+            "0 0 0px 0px var(--shadow-profile)",
           ],
         }}
         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}

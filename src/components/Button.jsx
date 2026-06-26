@@ -31,10 +31,10 @@ export default function Button({
   // ── 1. Variant Style Map ──
   const variantClasses = {
     solid: `w-full sm:w-auto justify-center px-6 py-4 text-[14px] border-2 border-[var(--primary-E2)] transition-all duration-[800ms] ${
-      hov ? "text-[var(--text)] scale-105 shadow-[4px_5px_16px_2px_var(--primary-59)]" : "text-[var(--text-inverted)] scale-100 shadow-none"
+      hov ? "text-[var(--text)] scale-105 shadow-[4px_5px_16px_2px_var(--shadow-colored)]" : "text-[var(--text-inverted)] scale-100 shadow-none"
     }`,
     ghost: `w-full sm:w-auto justify-center px-6 py-4 text-[14px] bg-[var(--surface-0D)] border-2 border-[var(--primary-E2)] transition-all duration-[800ms] ${
-      hov ? "text-[var(--text-inverted)] scale-105 shadow-[4px_5px_16px_2px_var(--primary-59)]" : "text-[var(--primary-E2)] scale-100 shadow-none"
+      hov ? "text-[var(--text-inverted)] scale-105 shadow-[4px_5px_16px_2px_var(--shadow-colored)]" : "text-[var(--primary-E2)] scale-100 shadow-none"
     }`,
     // 🟢 UPDATED: Changed justify-between to justify-center and swapped px-6 for balanced custom spacing limits
     "pill-resume": "w-full sm:w-auto sm:min-w-[210px] justify-center py-4 text-[14px] h-full bg-[var(--surface-0D)] text-[var(--primary-E2)] border-2 border-[var(--primary-E2)] pl-[12px] pr-3 sm:pl-6 sm:pr-6",
@@ -48,7 +48,7 @@ export default function Button({
   // ── 2. Pill Expand Box Style Mapping ──
   const pillBoxClasses = isPillResume
     ? `absolute right-[7px] h-[35px] border-[1.5px] border-[var(--border-secondary)] flex items-center justify-center shrink-0 z-10 transition-all duration-500 ease-in-out ${
-        hov ? "bg-[var(--primary)] w-[calc(100%-14px)] shadow-[0_0_8px_2px_var(--primary-59)]" : "bg-[var(--text-inverted)] w-[35px] shadow-none"
+        hov ? "bg-[var(--primary)] w-[calc(100%-14px)] shadow-[0_0_8px_2px_var(--shadow-colored)]" : "bg-[var(--text-inverted)] w-[35px] shadow-none"
       }`
     : `absolute right-[7px] h-[35px] flex items-center justify-center shrink-0 z-10 transition-all duration-500 ease-in-out ${
         sent

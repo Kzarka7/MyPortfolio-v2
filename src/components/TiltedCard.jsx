@@ -93,7 +93,7 @@ export default function TiltedCard({
             height: imageHeight,
           }}
           className={`absolute top-0 left-0 object-cover rounded-none [transform:translateZ(0)] will-change-transform border solid border-[var(--primary)] transition-shadow duration-500 ease-in-out ${
-            hov ? "shadow-[0_0_16px_2px_var(--primary-59)]" : "shadow-none"
+            hov ? "shadow-[0_0_16px_2px_var(--shadow-colored)]" : "shadow-none"
           }`}
         />
 
