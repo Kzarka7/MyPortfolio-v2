@@ -27,7 +27,7 @@ export default function ThemeToggle() {
         [--slide-dist:30px] md:[--slide-dist:34px] 
         ${
           themeHover
-            ? "border-[var(--primary-C2)]"
+            ? "border-[var(--primary)]"
             : isDark
             ? "border-[var(--border-3D)] bg-transparent"
             : "border-[var(--border-3D)] bg-[var(--surface)]"
