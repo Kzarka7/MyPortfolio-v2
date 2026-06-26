@@ -12,9 +12,10 @@
 :root {
   /* ── 🌙 DARK MODE BASE VARIABLES ── */
   --bg: #050507;
+  --bg-alt: transparent;
 
   --surface: #0d0d0d; /* background color of card, project, and contact container */
-  --surface-05: #050505; /* background color of the image in hero section */
+  --surface-05: #050505; /* background color of the image in hero bg */
   --surface-blue-05: #4fc3f705; /* open to internship background color */
   --surface-0D: #4fc3f70d; /* background hover in education icon */
 
@@ -24,16 +25,16 @@
   --muted: #a7a7a7;
   --disabled: #4fc2f75d;
 
-  --primary: #4FC3F7; /* Primary color */
+  --primary: #4fc3f7; /* Primary color */
   --primary-E2: #4fc3f7e2;
   --primary-C2: #4fc3f7c2; /* Secondary Color */
 
   --border-67: #4fc3f767; /* border color open, live, role, github btn, tags, status, download icon */
-  --border-2E: #4fc3f72e; /* border of project and contact container, color of slanted image in hero section */
+  --border-2E: #4fc3f72e; /* border of project and contact container, color of slanted image in hero bg */
   --border-3D: #ffffff3d;
 
-  --primary-00: #4fc3f700; /* glowing effects of image in hero section */
-  --primary-99: #4fc3f799; /* glowing effects of dot in project section */
+  --primary-00: #4fc3f700; /* glowing effects of image in hero bg */
+  --primary-99: #4fc3f799; /* glowing effects of dot in project bg */
   --primary-1F: #4fc3f71f; /* glowing effects of project and contact container */
   --primary-59: #4fc3f759; /* glowing effects in the send message icon */
 
@@ -49,11 +50,12 @@
 /* ── ☀️ LIGHT MODE OVERRIDES ── */
 .light {
   --bg: #f8fafc; /* Crisp, elegant slate-white */
+  --bg-alt: #f1f2f3;
 
   --surface: #ffffff; /* pure white cards */
   --surface-05: #f1f5f9; /* cool gray image backing containers */
-  --surface-blue-05: #00668708; 
-  --surface-0D: #0066870f; 
+  --surface-blue-05: #00668708;
+  --surface-0D: #0066870f;
 
   --text: #0f172a; /* Deep charcoal slate for perfect typography reading contrast */
   --text-gray: #475569; /* Balanced slate gray for captions */
@@ -62,22 +64,22 @@
   --disabled: #00668740;
 
   /* Deepened cyan brand color accent for optimal AA/AAA text legibility contrast metrics */
-  --primary: #006687; 
+  --primary: #006687;
   --primary-E2: #006687e6;
-  --primary-C2: #006687bf; 
+  --primary-C2: #006687bf;
 
-  --border-67: #0066874d; 
-  --border-2E: #0066871f; 
+  --border-67: #0066874d;
+  --border-2E: #0066871f;
   --border-3D: #0f172a26;
 
-  --primary-00: #00668700; 
-  --primary-99: #00668780; 
-  --primary-1F: #00668724; 
-  --primary-59: #00668759; 
+  --primary-00: #00668700;
+  --primary-99: #00668780;
+  --primary-1F: #00668724;
+  --primary-59: #00668759;
 
   /* Tailored light-mode aurora colors to maintain depth */
-  --aurora-1: #4fc3f714;
-  --aurora-2: #4fc3f70d;
+  --aurora-1: transparent;
+  --aurora-2: transparent;
 }
 
 html {
@@ -89,7 +91,9 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 body::before {
@@ -135,16 +139,8 @@ h3 {
 
   /* ── 🛠️ FIX: Using the brand variables here fixes the missing ambient glow issues ── */
   background:
-    radial-gradient(
-      circle at 20% 20%,
-      var(--aurora-1),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 80% 80%,
-      var(--aurora-2),
-      transparent 30%
-    ),
+    radial-gradient(circle at 20% 20%, var(--aurora-1), transparent 35%),
+    radial-gradient(circle at 80% 80%, var(--aurora-2), transparent 30%),
     radial-gradient(var(--primary-1F) 1px, transparent 1px);
 
   background-size:
@@ -157,16 +153,35 @@ h3 {
 }
 
 /* Ensure components transition smoothly when changing themes */
-*, *::before, *::after {
-  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+*,
+*::before,
+*::after {
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 /* Override Framer motion/static spans layout text tags when animations are running */
-span, a, p, h1, h2, h3, button, svg {
-  transition: color 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
+span,
+a,
+p,
+h1,
+h2,
+h3,
+button,
+svg {
+  transition:
+    color 0.3s ease,
+    fill 0.3s ease,
+    stroke 0.3s ease;
 }
 
 ::placeholder {
   color: var(--muted) !important;
   opacity: 1;
+}
+
+.bg-alt {
+  background: var(--bg-alt);
 }

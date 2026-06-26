@@ -9,7 +9,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative flex items-center min-h-screen mx-4 z-[1]"
+      className="relative flex items-center min-h-screen px-4 z-[1] bg-alt"
     >
       <div className="w-full max-w-[1200px] mx-auto py-20">
         {/* Header */}

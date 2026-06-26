@@ -9,7 +9,6 @@ export default function App() {
 
   return (
     <>
-
       {/* 2. Page Router Layer (Always mounted so it's ready underneath) */}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -17,4 +16,3 @@ export default function App() {
     </>
   );
 }
-

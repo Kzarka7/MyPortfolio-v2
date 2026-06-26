@@ -9,7 +9,7 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="min-h-screen flex items-center relative z-10"
+      className="min-h-screen flex items-center relative z-10 bg-alt"
     >
       <div className="py-20 px-4 md:px-6 lg:px-0 max-w-[1200px] w-full mx-auto">
         {/* Section Header */}
