@@ -21,13 +21,14 @@
 
   --text: #e8e8e8; /* Main Text */
   --text-caption: #d2d2d2; /* Caption */
-  --text-dark: #0e0e0e;
+  --text-inverted: #0e0e0e;
+  --text-colored: #4fc3f7c2;
   --muted: #a7a7a7;
   --disabled: #4fc2f75d;
 
   --primary: #4fc3f7; /* Primary color */
   --primary-E2: #4fc3f7e2;
-  --primary-C2: #4fc3f7c2; /* Secondary Color */
+  --primary-C2: green; /* Secondary Color */
 
   --border-67: #4fc3f767; /* border color open, live, role, github btn, tags, status, download icon */
   --border-2E: #4fc3f72e; /* border of project and contact container, color of slanted image in hero bg */

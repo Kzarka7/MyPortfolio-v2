@@ -74,7 +74,7 @@ export default function Projects() {
           {/* Slider Numerical Counter */}
           <div
             style={{ fontFamily: "var(--font-mono)" }}
-            className="text-[12px] text-[var(--primary-C2)] tracking-wider order-2 sm:mx-auto"
+            className="text-[12px] text-[var(--text-colored)] tracking-wider order-2 sm:mx-auto"
           >
             {String(current + 1).padStart(2, "0")} /{" "}
             {String(projectsData.length).padStart(2, "0")}

@@ -56,7 +56,7 @@ export default function ProjectCard({ project, direction }) {
             className="bg-[var(--surface)] relative overflow-hidden transition-colors duration-300 ease-in-out"
           >
             {/* Top accent line */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-[var(--primary-C2)] z-10" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-[var(--primary)] z-10" />
 
             <CornerBrackets color="var(--primary)" size="14" strokeWidth="1.2" />
 
@@ -87,7 +87,7 @@ export default function ProjectCard({ project, direction }) {
               </div>
 
               {/* ID + year */}
-              <div className="absolute top-11 left-9 sm:top-12 sm:left-12 text-[10px] text-[var(--primary-C2)] tracking-widest font-mono z-20 pointer-events-none">
+              <div className="absolute top-11 left-9 sm:top-12 sm:left-12 text-[10px] text-[var(--text-colored)] tracking-widest font-mono z-20 pointer-events-none">
                 — {project.id} · {project.year}
               </div>
             </div>
@@ -144,9 +144,9 @@ export default function ProjectCard({ project, direction }) {
                     onMouseLeave={() => setLiveHov(false)}
                     style={{
                       fontFamily: "var(--font-mono)",
-                      backgroundColor: liveHov ? "var(--primary)" : "var(--primary-C2)",
+                      backgroundColor: liveHov ? "var(--primary)" : "var(--primary)",
                     }}
-                    className="text-[12px] font-bold no-underline tracking-wider uppercase py-2 px-3.5 text-[var(--text-dark)] transition-colors duration-250 ease-out text-center flex-1 md:flex-none"
+                    className="text-[12px] font-bold no-underline tracking-wider uppercase py-2 px-3.5 text-[var(--text-inverted)] transition-colors duration-250 ease-out text-center flex-1 md:flex-none"
                   >
                     Live ↗
                   </a>
@@ -170,7 +170,7 @@ export default function ProjectCard({ project, direction }) {
                   <span
                     key={tag}
                     style={{ fontFamily: "var(--font-mono)" }}
-                    className="text-[11px] sm:text-[12px] text-[var(--primary-C2)] border-[0.5px] border-[var(--border-67)] py-1 px-2.5 tracking-wide bg-[var(--surface-blue-05)]"
+                    className="text-[11px] sm:text-[12px] text-[var(--text-colored)] border-[0.5px] border-[var(--border-67)] py-1 px-2.5 tracking-wide bg-[var(--surface-blue-05)]"
                   >
                     {tag}
                   </span>

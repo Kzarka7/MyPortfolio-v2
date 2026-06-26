@@ -68,7 +68,7 @@ export default function GithubHeaderTelemetry() {
 return (
   <div
     style={{ fontFamily: "var(--font-mono, monospace)" }}
-    className="text-[11px] text-[var(--disabled)] tracking-wider flex items-center flex-wrap justify-center md:justify-end gap-3 max-w-[500px] leading-relaxed uppercase"
+    className="text-[11px] text-[var(--text-colored)] tracking-wider flex items-center flex-wrap justify-center md:justify-end gap-3 max-w-[500px] leading-relaxed uppercase"
   >
     {/* Loading State String / Identifier */}
     <span className="text-[var(--primary,#00f0ff)] font-semibold animate-pulse">

@@ -15,7 +15,7 @@ export default function ArrowButton({ direction, onClick, disabled }) {
           ? "var(--disabled)"
           : hov
             ? "var(--primary)"
-            : "var(--primary-C2)",
+            : "var(--primary)",
       }}
       className={`w-[46px] h-[46px] border-[0.5px] bg-transparent flex items-center justify-center relative overflow-hidden shrink-0 transition-all duration-200 ease-in-out ${
         disabled ? "cursor-not-allowed" : "cursor-pointer"
@@ -41,7 +41,7 @@ export default function ArrowButton({ direction, onClick, disabled }) {
             ? "var(--disabled)"
             : hov
               ? "var(--primary)"
-              : "var(--primary-C2)"
+              : "var(--primary)"
         }
         strokeWidth="2"
         strokeLinecap="round"

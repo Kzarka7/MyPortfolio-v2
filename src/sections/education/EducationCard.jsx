@@ -60,7 +60,7 @@ export default function EducationCard({ education, index }) {
           {/* Degree / Certificate Type Badge */}
           <span
             style={{ fontFamily: "var(--font-mono)" }}
-            className="text-[11px] text-[var(--primary-C2)] border border-[var(--border-2E)] px-2 py-[2px] tracking-[0.14em]"
+            className="text-[11px] text-[var(--text-colored)] border border-[var(--border-2E)] px-2 py-[2px] tracking-[0.14em]"
           >
             {education.type}
           </span>
@@ -102,7 +102,7 @@ export default function EducationCard({ education, index }) {
             fontFamily: "var(--font-barl)",
           }}
           className={`text-[18px] font-medium tracking-[0.08em] uppercase mb-2.5 ${
-            hov ? "text-[var(--primary)]" : "text-[var(--primary-C2)]"
+            hov ? "text-[var(--primary)]" : "text-[var(--text-colored)]"
           }`}
         >
           {education.institution}

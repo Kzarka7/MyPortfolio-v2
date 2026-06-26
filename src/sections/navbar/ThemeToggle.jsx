@@ -77,7 +77,7 @@ export default function ThemeToggle() {
         ) : (
           <FiSun 
             className="w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-300" 
-            style={{ color: themeHover ? "var(--text-dark)" : "var(--bg)" }} 
+            style={{ color: themeHover ? "var(--text-inverted)" : "var(--bg)" }} 
           />
         )}
       </motion.div>
