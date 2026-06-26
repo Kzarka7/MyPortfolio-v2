@@ -37,7 +37,7 @@ export default function ProfileImage() {
         width="100%"
         height="100%"
         background="var(--surface-05)"
-        borderColor="var(--border-primary)"
+        borderColor="var(--border-secondary)"
         glareColor="#4FC3F7"
         glareOpacity={0.12}
         glareAngle={-45}

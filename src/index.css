@@ -58,19 +58,18 @@
   --surface-0D: #0066870f;
 
   --text: #0f172a; /* Deep charcoal slate for perfect typography reading contrast */
-  --text-gray: #475569; /* Balanced slate gray for captions */
-  --text-dark: #fbfbfb; /* Swapped to white for components that flip color states */
+  --text-caption: #475569; /* Balanced slate gray for captions */
+  --text-inverted: #fbfbfb; /* Swapped to white for components that flip color states */
   --muted: #94a3b8;
   --disabled: #00668740;
 
   /* Deepened cyan brand color accent for optimal AA/AAA text legibility contrast metrics */
   --primary: #006687;
   --primary-E2: #006687e6;
-  --primary-C2: #006687bf;
 
-  --border-67: #0066874d;
-  --border-2E: #0066871f;
-  --border-3D: #0f172a26;
+  --border-primary: #0066871f;
+  --border-secondary: #0066874d;
+  --border-muted: #0f172a26;
 
   --primary-00: #00668700;
   --primary-99: #00668780;
@@ -120,7 +119,7 @@ h3 {
 
 ::selection {
   background: var(--primary);
-  color: var(--text-dark);
+  color: var(--text-inverted);
 }
 
 ::-webkit-scrollbar {
@@ -175,7 +174,7 @@ svg {
     color 0.3s ease,
     fill 0.3s ease,
     stroke 0.3s ease;
-}
+} 
 
 ::placeholder {
   color: var(--muted) !important;
