@@ -104,7 +104,7 @@ export default function ContactCard() {
       viewport={{ once: false, amount: 0.1 }}
       transition={{ duration: 0.8, ease: EASE }}
       className={`bg-[var(--surface)] p-6 md:p-10 border-[0.5px] relative will-change-transform transition-colors duration-300 ${
-        hov ? "border-[var(--border-67)]" : "border-[var(--border-primary)]"
+        hov ? "border-[var(--border-secondary)]" : "border-[var(--border-primary)]"
       }`}
     >
       <CornerBrackets color="var(--primary)" size="14" strokeWidth="1.2" />
@@ -146,7 +146,7 @@ export default function ContactCard() {
               placeholder="Your name"
               style={{ fontFamily: "var(--font-mono)" }}
               className={`${baseInputClassName} ${
-                focused === "name" ? "border-[var(--border-67)]" : "border-[var(--border-primary)]"
+                focused === "name" ? "border-[var(--border-secondary)]" : "border-[var(--border-primary)]"
               }`}
               required
               autoComplete="off"
@@ -168,7 +168,7 @@ export default function ContactCard() {
               placeholder="you@email.com"
               style={{ fontFamily: "var(--font-mono)" }}
               className={`${baseInputClassName} ${
-                focused === "email" ? "border-[var(--border-67)]" : "border-[var(--border-primary)]"
+                focused === "email" ? "border-[var(--border-secondary)]" : "border-[var(--border-primary)]"
               }`}
               required
               autoComplete="off"
@@ -196,7 +196,7 @@ export default function ContactCard() {
             disabled={sending}
             style={{ fontFamily: "var(--font-mono)" }}
             className={`${baseInputClassName} resize-none ${
-              focused === "message" ? "border-[var(--border-67)]" : "border-[var(--border-primary)]"
+              focused === "message" ? "border-[var(--border-secondary)]" : "border-[var(--border-primary)]"
             }`}
           />
 

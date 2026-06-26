@@ -47,7 +47,7 @@ export default function Button({
 
   // ── 2. Pill Expand Box Style Mapping ──
   const pillBoxClasses = isPillResume
-    ? `absolute right-[7px] h-[35px] border-[1.5px] border-[var(--border-67)] flex items-center justify-center shrink-0 z-10 transition-all duration-500 ease-in-out ${
+    ? `absolute right-[7px] h-[35px] border-[1.5px] border-[var(--border-secondary)] flex items-center justify-center shrink-0 z-10 transition-all duration-500 ease-in-out ${
         hov ? "bg-[var(--primary)] w-[calc(100%-14px)] shadow-[0_0_8px_2px_var(--primary-59)]" : "bg-[var(--text-inverted)] w-[35px] shadow-none"
       }`
     : `absolute right-[7px] h-[35px] flex items-center justify-center shrink-0 z-10 transition-all duration-500 ease-in-out ${

@@ -69,7 +69,7 @@ export default function EducationCard({ education, index }) {
           <span
             style={{
               fontFamily: "var(--font-mono)",
-              borderColor: education.status === "ONGOING" ? "var(--border-67)" : "var(--border-3D)",
+              borderColor: education.status === "ONGOING" ? "var(--border-secondary)" : "var(--border-3D)",
               color: education.status === "ONGOING" ? "var(--primary)" : "var(--text-caption)",
             }}
             className="text-[11px] bg-[var(--surface-blue-05)] border-[0.5px] px-2 py-[2px] tracking-[0.1em]"

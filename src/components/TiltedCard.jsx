@@ -116,7 +116,7 @@ export default function TiltedCard({
             opacity,
             rotate: rotateFigcaption,
           }}
-          className="pointer-events-none absolute left-0 top-0 rounded-[2px] bg-[var(--surface)] border-[0.5px] border-[var(--border-67)] text-[var(--primary)] text-[10px] tracking-[0.1em] uppercase p-[4px_10px] z-10 will-change-[transform,opacity]"
+          className="pointer-events-none absolute left-0 top-0 rounded-[2px] bg-[var(--surface)] border-[0.5px] border-[var(--border-secondary)] text-[var(--primary)] text-[10px] tracking-[0.1em] uppercase p-[4px_10px] z-10 will-change-[transform,opacity]"
         >
           {captionText}
         </motion.figcaption>
