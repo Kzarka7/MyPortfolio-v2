@@ -27,20 +27,9 @@ export default function MobileMenu({ scrolled, onClose }) {
   // 🎯 Reference to track the menu container boundary
   const menuRef = useRef(null);
 
-  // 🔄 Unified Hook: Tracks active sections, scrolls, and outside clicks
+  // 🔄 Unified Hook: Tracks active sections and outside clicks
   useEffect(() => {
-    // 1. Capture the exact scroll position when the menu was opened
-    const initialScrollY = window.scrollY;
-    const scrollThreshold = 15; 
-
-    const handleScrollClose = () => {
-      const currentScrollY = window.scrollY;
-      if (Math.abs(currentScrollY - initialScrollY) > scrollThreshold) {
-        onClose();
-      }
-    };
-
-    // 2. Click Outside Handler
+    // 1. Click Outside Handler
     const handleClickOutside = (event) => {
       // If the menu is open and the clicked target is NOT contained within menuRef, close it
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -48,11 +37,10 @@ export default function MobileMenu({ scrolled, onClose }) {
       }
     };
 
-    window.addEventListener("scroll", handleScrollClose, { passive: true });
     // Use mousedown or pointerdown for faster response times on mobile devices
     window.addEventListener("mousedown", handleClickOutside);
 
-    // 3. Active Section Tracker (IntersectionObserver)
+    // 2. Active Section Tracker (IntersectionObserver)
     const observers = [];
     links.forEach(({ id }) => {
       const el = document.getElementById(id);
@@ -69,7 +57,6 @@ export default function MobileMenu({ scrolled, onClose }) {
 
     // 🧼 Clean up everything when unmounting
     return () => {
-      window.removeEventListener("scroll", handleScrollClose);
       window.removeEventListener("mousedown", handleClickOutside);
       observers.forEach((o) => o.disconnect());
     };
