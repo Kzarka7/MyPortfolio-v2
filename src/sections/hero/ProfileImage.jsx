@@ -2,7 +2,6 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 import profileImage1 from "../../assets/profile-image.png";
-import profileImage2 from "../../assets/profile-image-light.jpg"
 import CornerBrackets from "../../components/CornerBrackets";
 import Availability from "../../components/Availability";
 import GlareHover from "../../components/GlareHover";
@@ -45,7 +44,7 @@ export default function ProfileImage() {
         animate={
           isLight
             ? {
-                boxShadow: "0 4px 8px var(--shadow-profile)",
+                boxShadow: "0 8px 16px var(--shadow-profile)",
               }
             : {
                 boxShadow: [

@@ -147,7 +147,7 @@ export default function ContactCard() {
               onFocus={() => setFocused("name")}
               onBlur={() => setFocused(null)}
               placeholder="Your name"
-              style={{ fontFamily: "var(--font-mono)" }}
+              style={{ fontFamily: "var(--font-mono)", background: "var(--input-area)" }}
               className={`${baseInputClassName} ${
                 focused === "name" ? "border-[var(--border-secondary)]" : "border-[var(--border-primary)]"
               }`}
@@ -169,7 +169,7 @@ export default function ContactCard() {
               onFocus={() => setFocused("email")}
               onBlur={() => setFocused(null)}
               placeholder="you@email.com"
-              style={{ fontFamily: "var(--font-mono)" }}
+              style={{ fontFamily: "var(--font-mono)", background: "var(--input-area)" }}
               className={`${baseInputClassName} ${
                 focused === "email" ? "border-[var(--border-secondary)]" : "border-[var(--border-primary)]"
               }`}
@@ -197,7 +197,7 @@ export default function ContactCard() {
             required
             autoComplete="off"
             disabled={sending}
-            style={{ fontFamily: "var(--font-mono)" }}
+            style={{ fontFamily: "var(--font-mono)", background: "var(--input-area)" }}
             className={`${baseInputClassName} resize-none ${
               focused === "message" ? "border-[var(--border-secondary)]" : "border-[var(--border-primary)]"
             }`}

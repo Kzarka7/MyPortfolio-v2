@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+import CornerBrackets from "../../components/CornerBrackets";
+
 export default function EducationCard({ education, index }) {
   const [hov, setHov] = useState(false);
   const Icon = education.icon;
@@ -13,41 +15,43 @@ export default function EducationCard({ education, index }) {
       transition={{ duration: 0.5, delay: index * 0.12 }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      className="grid grid-cols-[48px_1fr] gap-3 md:gap-5 md:px-5 py-6 border-b border-[var(--border-muted)] cursor-pointer relative"
+      className="grid grid-cols-[48px_1fr] gap-3 md:gap-5 md:px-5 py-6 px-2 cursor-pointer relative bg-[var(--surface)] border-[0.5px] border-[var(--border-primary)]"
+      style={{
+        boxShadow: "0 4px 16px var(--shadow-card)",
+      }}
     >
       {/* Interactive indicator bar pinned to the left edge */}
-      <span
-        style={{
-          backgroundColor: education.color,
-          transform: hov ? "scaleY(1)" : "scaleY(0)",
-        }}
-        className="hidden md:block absolute left-0 top-0 bottom-0 w-[2px] origin-top transition-transform duration-300 ease-in-out"
-      />
+      <span className="absolute left-0 top-0 bottom-0 w-[4px] bg-[var(--secondary)] origin-top transition-transform duration-300 ease-in-out" />
 
       {/* Timeline Column (Icon Container + Connecting Line) */}
       <div className="flex flex-col items-center gap-2">
         <div
           style={{
-            borderColor: hov ? education.color : "var(--border-muted)",
+            borderColor: hov ? "var(--primary)" : "var(--border-muted)",
             backgroundColor: hov ? "var(--surface-tertiary)" : "transparent",
+            transition: "all 0.3s ease"
           }}
-          className="w-10 h-10 border-[0.5px] flex items-center justify-center shrink-0 transition-all duration-250"
+          className="w-10 h-10 border-[0.5px] flex items-center justify-center shrink-0"
         >
           <Icon
             style={{
-              color: hov ? education.color : "var(--text)",
+              color: hov ? "var(--primary)" : "var(--text)",
             }}
-            className="text-[16px] transition-colors duration-250"
+            className="text-[16px] transition-color duration-250"
           />
         </div>
 
         {/* ── 🛠️ ANIMATED TIMELINE CONNECTOR LINE ── */}
-        <motion.div 
+        <motion.div
           initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
           viewport={{ once: false }}
           /* Synchronized with the card slide reveal or custom tuned */
-          transition={{ duration: 0.6, ease: "easeInOut", delay: (index * 0.12) + 0.2 }}
+          transition={{
+            duration: 0.6,
+            ease: "easeInOut",
+            delay: index * 0.12 + 0.2,
+          }}
           style={{ transformOrigin: "top" }}
           className="w-[0.5px] flex-1 bg-[var(--muted)] min-h-[20px]"
         />
@@ -69,8 +73,14 @@ export default function EducationCard({ education, index }) {
           <span
             style={{
               fontFamily: "var(--font-mono)",
-              borderColor: education.status === "ONGOING" ? "var(--border-secondary)" : "var(--border-muted)",
-              color: education.status === "ONGOING" ? "var(--primary)" : "var(--text-caption)",
+              borderColor:
+                education.status === "ONGOING"
+                  ? "var(--border-secondary)"
+                  : "var(--border-muted)",
+              color:
+                education.status === "ONGOING"
+                  ? "var(--primary)"
+                  : "var(--text-caption)",
             }}
             className="text-[11px] bg-[var(--surface-secondary)] border-[0.5px] px-2 py-[2px] tracking-[0.1em]"
           >

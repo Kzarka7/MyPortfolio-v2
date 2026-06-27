@@ -11,45 +11,43 @@
 
 :root {
   /* ── 🌙 DARK MODE BASE VARIABLES ── */
-  --bg: #050507;
+  --bg: #050505;
   --bg-alt: transparent;
 
-  --surface: #0d0d0d; /* background color of card, project, and contact container */
+  --surface: #0f0f0f; /* background color of card, project, and contact container */
   --surface-secondary: #4fc3f705; /* open to internship background color */
   --surface-tertiary: #4fc3f70d; /* background hover in education icon and button */
   --surface-active: #4fc3f71f; /* background color of the active container in navbar */
   --surface-profile: #050505; /* background color of the image */
+  --surface-skew: #0c5f78;
 
   --text: #e8e8e8; /* Main Text */
   --text-caption: #d2d2d2; /* Caption */
   --text-inverted: #0e0e0e;
   --text-colored: #4fc3f7c2;
+  --text-skew: #e8e8e8;
   --muted: #a7a7a7;
   --disabled: #4fc2f75d;
 
   --primary: #4fc3f7; /* Primary color */
-  --primary-E2: #4fc3f7e2;
+  --secondary: #4fc3f7e2;
 
   --border-primary: #4fc3f72e; /* border of project and contact container, color of slanted image in hero bg */
   --border-secondary: #4fc3f767; /* border color open, live, role, github btn, tags, status, download icon */
   --border-muted: #ffffff3d;
 
   --shadow-profile: rgba(79, 195, 247, 0.18);
-  --shadow-colored: rgba(
-    79,
-    195,
-    247,
-    0.349
-  ); /* glowing effects in the send message icon */
+  --shadow-colored: rgba(79, 195, 247, 0.35); /* glowing effects in the send message icon */
 
   --font-mono: "Martian Mono", monospace;
   --font-barl: "Barlow Condensed", sans-serif;
   --font-body: "Geist", sans-serif;
 
+  --input-area: transparent;
+
   /* Dynamic ambient glow targets to keep aurora working across themes */
   --aurora-1: #4fc2f718;
   --aurora-2: #4fc2f70f;
-
   --dot-color: #4fc2f72f;
 
   --webkit-track: #4fc2f71a;
@@ -58,42 +56,43 @@
 
 /* ── ☀️ LIGHT MODE OVERRIDES ── */
 .light {
-  --bg: #f8fafc; /* Crisp, elegant slate-white */
-  --bg-alt: #f4f4f4;
+  --bg: #fafafa;
+  --bg-alt: #f4f4f7;
 
-  --surface: #ffffff; /* pure white cards */
-  --surface-secondary: #00668708;
-  --surface-tertiary: #0066870f;
-  --surface-active: #00668724;
-  --surface-profile: #05050510; /* cool gray image backing containers */
+  --surface: #ffffff;
+  --surface-secondary: #4f46e50a;
+  --surface-tertiary: #4f46e512;
+  --surface-active: #4f46e51f;
+  --surface-profile: #e0e7ff;
+  --surface-skew: #4f46e5; /* Vibrant solid indigo focal highlight */
 
-  --text: #212121; /* Deep charcoal slate for perfect typography reading contrast */
-  --text-caption: #475569; /* Balanced slate gray for captions */
-  --text-inverted: #fbfbfb; /* Swapped to white for components that flip color states */
-  --text-colored: #4fc3f7c2;
-  --muted: #94a3b8;
-  --disabled: #00668740;
+  --text: #111827;
+  --text-caption: #1a1b1d;
+  --text-inverted: #e8e8e8;
+  --text-colored: #4f46e5;
+  --text-skew: #e8e8e8;
+  --muted: #5c5d61;
+  --disabled: #4f46e590;
 
-  /* Deepened cyan brand color accent for optimal AA/AAA text legibility contrast metrics */
-  --primary: #006687;
-  --primary-E2: #006687e6;
+  --primary: #4f46e5;
+  --secondary: #4f46e5e6;
 
-  --border-primary: #0066871f;
-  --border-secondary: #0066874d;
-  --border-muted: #0f172a26;
+  --border-primary: #4f46e524;
+  --border-secondary: #4f46e55e;
+  --border-muted: #c4c7cc;
 
-  --shadow-profile: rgba(0, 0, 0, 0.15);
-  --shadow-colored: rgba(0, 102, 135, 0.349);
+  --shadow-profile: rgba(79, 70, 229, 0.3);
+  --shadow-colored: rgba(78, 70, 229, 0.5);
   --shadow-card: rgba(0, 0, 0, 0.15);
 
-  /* Tailored light-mode aurora colors to maintain depth */
+  --input-area: #f9fafb;
+
   --aurora-1: transparent;
   --aurora-2: transparent;
+  --dot-color: #4f46e50d;
 
-  --dot-color: transparent;
-
-  --webkit-track: #0c181f;
-  --webkit-thumb: #3784a7;
+  --webkit-track: #4e46e590;
+  --webkit-thumb: #4f46e5;
 }
 
 html {

@@ -36,7 +36,7 @@ export default function ProjectCard({ project, direction }) {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="relative will-change-transform"
       style={{
-        boxShadow: "0 4px 16px var(--shadow-card)"
+        boxShadow: "0 4px 16px var(--shadow-card)",
       }}
     >
       {/* ── 🎯 FIX: Added clipping viewport wrapper directly around AnimatePresence ── */}
@@ -58,10 +58,11 @@ export default function ProjectCard({ project, direction }) {
             }}
             className="bg-[var(--surface)] relative overflow-hidden transition-colors duration-300 ease-in-out"
           >
-            {/* Top accent line */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-[var(--primary)] z-10" />
-
-            <CornerBrackets color="var(--primary)" size="14" strokeWidth="1.2" />
+            <CornerBrackets
+              color="var(--primary)"
+              size="14"
+              strokeWidth="1.2"
+            />
 
             {/* ── IMAGE SECTION — Fluid Responsive Heights ── */}
             <div className="w-full h-[260px] sm:h-[340px] md:h-[400px] relative p-6 sm:p-8 overflow-hidden">
@@ -97,7 +98,6 @@ export default function ProjectCard({ project, direction }) {
 
             {/* ── CARD BODY CONTENT ── */}
             <div className="p-6 sm:p-8 border-t-[0.5px] border-[var(--border-primary)]">
-              
               {/* Title, Roles & Primary Action Target Split Block */}
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-5 mb-4">
                 <div>
@@ -132,8 +132,12 @@ export default function ProjectCard({ project, direction }) {
                     onMouseLeave={() => setGithubHov(false)}
                     style={{
                       fontFamily: "var(--font-mono)",
-                      color: githubHov ? "var(--primary)" : "var(--text-caption)",
-                      borderColor: githubHov ? "var(--border-secondary)" : "var(--border-muted)",
+                      color: githubHov
+                        ? "var(--primary)"
+                        : "var(--text-caption)",
+                      borderColor: githubHov
+                        ? "var(--border-secondary)"
+                        : "var(--border-muted)",
                     }}
                     className="text-[12px] no-underline tracking-wider uppercase py-2 px-3.5 bg-[var(--surface-secondary)] border-[0.5px] transition-colors duration-200 ease-out text-center flex-1 md:flex-none"
                   >
@@ -147,7 +151,9 @@ export default function ProjectCard({ project, direction }) {
                     onMouseLeave={() => setLiveHov(false)}
                     style={{
                       fontFamily: "var(--font-mono)",
-                      backgroundColor: liveHov ? "var(--primary)" : "var(--primary)",
+                      backgroundColor: liveHov
+                        ? "var(--primary)"
+                        : "var(--secondary)",
                     }}
                     className="text-[12px] font-bold no-underline tracking-wider uppercase py-2 px-3.5 text-[var(--text-inverted)] transition-colors duration-250 ease-out text-center flex-1 md:flex-none"
                   >
